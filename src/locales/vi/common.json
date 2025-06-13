@@ -1,0 +1,155 @@
+{
+    "welcome": "Chào mừng đến với Caro Online",
+    "game": {
+        "title": "Trò chơi Caro",
+        "newGame": "Trò chơi mới",
+        "joinGame": "Tham gia trò chơi",
+        "gameRoom": "Phòng chơi",
+        "waiting": "Đang chờ đối thủ...",
+        "yourTurn": "Lượt của bạn",
+        "opponentTurn": "Lượt của đối thủ",
+        "winner": "Người thắng: {{player}}",
+        "draw": "Hòa!",
+        "gameOver": "Kết thúc trò chơi",
+        "gameEnded": "Game đã kết thúc",
+        "turnOf": "Lượt của: {{player}}",
+        "playerWon": "Người chơi {{player}} đã chiến thắng!",
+        "congratulations": "Chúc mừng!",
+        "playAgain": "Chơi lại",
+        "review": "Xem lại",
+        "loading": "Đang tải...",
+        "creating": "Đang tạo...",
+        "creatingGuestUser": "Đang tạo guest user..."
+    },
+    "player": {
+        "player1": "Người chơi 1",
+        "player2": "Người chơi 2",
+        "you": "Bạn",
+        "opponent": "Đối thủ"
+    },
+    "buttons": {
+        "start": "Bắt đầu",
+        "restart": "Chơi lại",
+        "exit": "Thoát",
+        "cancel": "Hủy",
+        "confirm": "Xác nhận",
+        "back": "Quay lại",
+        "next": "Tiếp theo",
+        "startPlaying": "Bắt đầu chơi",
+        "logout": "Đăng xuất",
+        "play": "Bắt đầu chơi",
+        "findRoom": "Tìm phòng",
+        "createRoom": "Tạo phòng mới"
+    },
+    "menu": {
+        "home": "Trang chủ",
+        "play": "Chơi",
+        "settings": "Cài đặt",
+        "about": "Giới thiệu",
+        "language": "Ngôn ngữ"
+    },
+    "settings": {
+        "language": "Ngôn ngữ",
+        "sound": "Âm thanh",
+        "music": "Nhạc nền",
+        "notifications": "Thông báo"
+    },
+    "homepage": {
+        "title": "Caro Online",
+        "placeholder": "Nhập tên của bạn...",
+        "welcomeUser": "Chào mừng, {{name}}!"
+    },
+    "gamepage": {
+        "welcomeUser": "Chào mừng, {{name}}!",
+        "gameActions": "Hành động trò chơi",
+        "winConditionTooLarge": "Điều kiện thắng không thể lớn hơn kích thước bàn cờ"
+    },
+    "gamePage": {
+        "welcomeUser": "Chào mừng, {{name}}!",
+        "createRoom": "Tạo phòng",
+        "roomName": "Tên phòng",
+        "password": "Mật khẩu",
+        "privateRoom": "Phòng riêng tư",
+        "boardSize": "Kích thước bàn cờ",
+        "winCondition": "Điều kiện thắng",
+        "winConditionTooLarge": "Điều kiện thắng không thể lớn hơn kích thước bàn cờ"
+    },
+    "messages": {
+        "cellOccupied": "Ô này đã có quân!",
+        "gameAlreadyEnded": "Game đã kết thúc, không thể đánh tiếp!"
+    },
+    "api": {
+        "validation": {
+            "nameRequired": "Vui lòng nhập tên người dùng"
+        },
+        "success": {
+            "guestUserCreated": "Tạo người dùng guest thành công"
+        },
+        "errors": {
+            "guestUserCreationFailed": "Không thể tạo người dùng guest",
+            "guestUserCreationError": "Có lỗi xảy ra khi tạo người dùng guest"
+        }
+    },
+    "roomList": {
+        "title": "Danh sách phòng",
+        "totalRooms": "{{total}} phòng",
+        "refresh": "🔄 Làm mới",
+        "createdBy": "Người tạo:",
+        "players": "Người chơi:",
+        "boardSize": "Bàn cờ:",
+        "winCondition": "Thắng:",
+        "winConditionCount": "{{count}} quân",
+        "boardSizeFormat": "{{size}}x{{size}}",
+        "joinBtn": "Tham gia",
+        "fullBtn": "Đầy",
+        "watchBtn": "Xem",
+        "retry": "Thử lại",
+        "noRooms": "Không có phòng nào",
+        "refreshList": "Làm mới",
+        "loading": "Đang tải danh sách phòng...",
+        "pagination": {
+            "previous": "« Trước",
+            "next": "Sau »",
+            "pageInfo": "Trang {{current}} / {{total}}"
+        },
+        "status": {
+            "waiting": "Đang chờ",
+            "playing": "Đang chơi",
+            "finished": "Đã kết thúc"
+        }
+    },
+    "createRoomForm": {
+        "title": "Tạo Phòng Mới",
+        "roomName": "Tên Phòng",
+        "roomNameRequired": "Tên Phòng *",
+        "roomNamePlaceholder": "Nhập tên phòng...",
+        "hasPassword": "Phòng có mật khẩu",
+        "password": "Mật khẩu",
+        "passwordPlaceholder": "Nhập mật khẩu...",
+        "boardSize": "Kích thước bàn cờ",
+        "winCondition": "Điều kiện thắng",
+        "boardSizeOptions": {
+            "13x13": "13x13",
+            "15x15": "15x15",
+            "19x19": "19x19"
+        },
+        "winConditionOptions": {
+            "3": "3 quân liên tiếp",
+            "4": "4 quân liên tiếp",
+            "5": "5 quân liên tiếp"
+        },
+        "createBtn": "Tạo Phòng",
+        "creating": "Đang tạo...",
+        "successMessage": "Phòng \"{{roomName}}\" đã được tạo thành công!",
+        "roomId": "ID: {{id}}"
+    },
+    "toast": {
+        "roomCreated": "Phòng đã được tạo thành công!",
+        "roomCreateError": "Có lỗi xảy ra khi tạo phòng",
+        "roomSelected": "Đã chọn phòng: {{roomName}}",
+        "formError": "Vui lòng kiểm tra lại thông tin",
+        "networkError": "Lỗi kết nối mạng",
+        "success": "Thành công!",
+        "error": "Có lỗi xảy ra"
+    }
+} 

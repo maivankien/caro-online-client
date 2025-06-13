@@ -1,54 +1,129 @@
-# React + TypeScript + Vite
+# Caro Online Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ứng dụng client cho game Caro Online được xây dựng với React + TypeScript + Vite.
 
-Currently, two official plugins are available:
+## 🏗️ Cấu trúc thư mục
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+src/
+├── components/           # Các React components
+├── pages/               # Các trang chính
+│   ├── HomePage.tsx     # Trang đăng nhập/tạo guest user
+│   └── GamePage.tsx     # Trang game chính
+├── hooks/              # Custom React hooks
+│   └── useApi.hook.ts  # Hook quản lý guest authentication (tối ưu)
+├── services/           # API services
+│   └── api.service.ts  # Service gọi API với axios
+├── types/              # TypeScript type definitions
+│   └── api.types.ts    # Types cho API responses
+├── config/             # Configuration files
+│   └── api.config.ts   # Cấu hình API endpoints
+├── styles/             # CSS styles
+│   └── pages/          # Styles cho từng trang
+│       ├── HomePage.css
+│       └── GamePage.css
+└── assets/             # Static assets
+```
 
-## Expanding the ESLint configuration
+## 🚀 Tính năng
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Trang chủ (/) - Đăng nhập
+- ✅ Nhập tên người dùng
+- ✅ Tạo guest user qua API
+- ✅ Tự động chuyển hướng đến trang game sau khi tạo thành công
+- ✅ Kiểm tra và chuyển hướng nếu đã đăng nhập
+- ✅ Loading states và error handling
+- ✅ Responsive design
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
+### Trang Game (/game) - Dashboard
+- ✅ Hiển thị thông tin người dùng đã đăng nhập
+- ✅ Bảo vệ route (redirect về trang chủ nếu chưa đăng nhập)
+- ✅ Các nút action cho game (Bắt đầu chơi, Tìm phòng, Tạo phòng)
+- ✅ Chức năng đăng xuất
+- ✅ Responsive design
+
+### Công nghệ sử dụng
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **React Router** - Client-side routing
+- **Axios** - HTTP client
+- **Framer Motion** - Animations
+- **CSS3** - Styling với gradient và animations
+
+## 📦 Cài đặt
+
+```bash
+# Cài đặt dependencies
+npm install
+
+# Chạy development server
+npm run dev
+
+# Build cho production
+npm run build
+```
+
+## 🔧 Cấu hình API
+
+Cập nhật file `src/config/api.config.ts` để thay đổi API endpoint:
+
+```typescript
+export const API_CONFIG = {
+    BASE_URL: 'http://localhost:3000',
+    TIMEOUT: 10000,
+    HEADERS: {
+        'Content-Type': 'application/json',
     },
-  },
-})
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📝 Quy tắc code
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Code không có dấu `;` (trừ import statements)
+- Sử dụng 4 spaces cho indentation
+- Interface TypeScript có tiền tố `I` (ví dụ: `IUser`, `IAuthResponse`)
+- File naming: kebab-case cho CSS, camelCase cho TS/TSX
+- Thư mục được tổ chức theo chức năng
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 🎯 API Endpoint
+
+API sử dụng endpoint local:
+- `POST /api/auth/guest` - Tạo guest user và nhận token
+
+### Request Format:
+```json
+{
+    "name": "Tên người dùng"
+}
 ```
+
+### Response Format:
+```json
+{
+    "data": {
+        "user": {
+            "id": "uuid",
+            "name": "Tên người dùng",
+            "isGuest": 1
+        },
+        "token": "JWT_TOKEN"
+    },
+    "message": "Guest user created and authenticated successfully",
+    "statusCode": 201
+}
+```
+
+## 🔐 Authentication & Navigation
+
+- Token được lưu trong localStorage với key `authToken`
+- Thông tin user được lưu trong localStorage với key `user`
+- Tự động chuyển hướng đến `/game` ngay sau khi tạo user thành công
+- Route protection: `/game` yêu cầu authentication, redirect về `/` nếu chưa đăng nhập
+- Tự động redirect đến `/game` nếu đã đăng nhập khi truy cập `/`
+- Có thể đăng xuất từ trang game để quay về trang chủ
+
+## 🛣️ Routes
+
+- `/` - Trang chủ (đăng nhập/tạo guest user)
+- `/game` - Trang game chính (yêu cầu authentication)

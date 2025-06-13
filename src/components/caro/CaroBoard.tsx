@@ -3,6 +3,7 @@ import { checkWinCondition, isPositionInWinningLine, type Player } from "@/utils
 import WinModal from "@/components/caro/WinModal";
 import GameInfo from "@/components/caro/GameInfo";
 import BoardCell from "@/components/caro/BoardCell";
+import { useTranslation } from "../../hooks/useTranslation";
 
 /**
  * Caro (Gomoku) board UI component – V4
@@ -41,17 +42,18 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
     const [winner, setWinner] = useState<Player | null>(null);
     const [winningPositions, setWinningPositions] = useState<[number, number][]>([]);
     const [gameEnded, setGameEnded] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     const handleClick = (r: number, c: number) => {
         // Ngăn hoàn toàn không cho đánh nếu game đã kết thúc
         if (gameEnded) {
-            console.log("Game đã kết thúc, không thể đánh tiếp!");
+            console.log(t('messages.gameAlreadyEnded'));
             return;
         }
 
         // Ngăn không cho đánh nếu ô đã có quân
         if (board[r][c]) {
-            console.log("Ô này đã có quân!");
+            console.log(t('messages.cellOccupied'));
             return;
         }
 
@@ -65,7 +67,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
             setWinner(turn);
             setWinningPositions(winPositions);
             setGameEnded(true);
-            console.log(`Người chơi ${turn} đã thắng!`);
+            console.log(t('game.playerWon', { player: turn }));
         }
 
         onMove?.(r, c, turn);

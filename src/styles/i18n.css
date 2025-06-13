@@ -1,0 +1,81 @@
+/* Language Switcher Styles */
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.language-switcher label {
+    font-weight: 500;
+    color: #333;
+}
+
+.language-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.language-select:hover {
+    border-color: #007bff;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* HomePage Language Switcher - inside white container */
+.homepage .language-switcher-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.homepage .language-switcher {
+    margin: 0;
+}
+
+.homepage .language-switcher label {
+    color: #333;
+}
+
+.game-page .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.game-page .language-switcher {
+    margin: 0;
+}
+
+.game-page .header-actions .language-switcher label {
+    color: #333;
+}
+
+.game-page>.language-switcher label,
+.game-page .game-container>.language-switcher label {
+    color: #fff;
+}
+
+.caro-board .language-switcher label {
+    color: #fff;
+}
+
+.language-switcher-container .language-switcher label {
+    color: #333;
+}
+
+.language-select option {
+    color: #333;
+    background-color: white;
+}

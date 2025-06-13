@@ -1,0 +1,13 @@
+/* Global styles for the app root container only */
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f0f2f5;
+} 

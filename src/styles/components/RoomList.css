@@ -1,0 +1,124 @@
+.room-list {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.room-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.room-list-header h2 {
+    margin: 0;
+    color: #1890ff;
+}
+
+.room-grid {
+    margin-bottom: 32px;
+}
+
+.room-card {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.room-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.room-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.room-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.room-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.room-info-item .anticon {
+    color: #8c8c8c;
+    font-size: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: #8c8c8c;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .room-list {
+        padding: 16px;
+    }
+
+    .room-list-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .room-card-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    .room-grid .ant-col {
+        margin-bottom: 16px;
+    }
+
+    .pagination-container .ant-pagination {
+        font-size: 12px;
+    }
+}
+
+/* Loading state styles */
+.ant-card-loading {
+    min-height: 200px;
+}
+
+/* Status tag styles */
+.room-card .ant-tag {
+    margin: 0;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Button styles in card actions */
+.room-card .ant-card-actions {
+    background: #fafafa;
+    border-radius: 0 0 12px 12px;
+}
+
+.room-card .ant-card-actions>li>span {
+    width: 100%;
+}

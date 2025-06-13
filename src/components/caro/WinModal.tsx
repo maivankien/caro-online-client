@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { type Player } from "@/utils/caroGameLogic";
-import { PLAYER_COLORS } from "@/utils/colors";
+import { useTranslation } from "../../hooks/useTranslation";
 
 interface WinModalProps {
     winner: Player;
@@ -10,6 +10,8 @@ interface WinModalProps {
 }
 
 const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) => {
+    const { t } = useTranslation();
+
     return (
         <div style={{
             position: "fixed",
@@ -51,7 +53,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     marginBottom: "16px",
                     margin: 0
                 }}>
-                    Chúc mừng!
+                    {t('game.congratulations')}
                 </h2>
 
                 <p style={{
@@ -60,11 +62,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     marginBottom: "30px",
                     margin: "0 0 30px 0"
                 }}>
-                    Người chơi <span style={{
-                        color: PLAYER_COLORS[winner],
-                        fontWeight: "bold",
-                        fontSize: "24px"
-                    }}>{winner}</span> đã chiến thắng!
+                    {t('game.playerWon', { player: winner })}
                 </p>
 
                 <div style={{
@@ -95,7 +93,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                             e.currentTarget.style.transform = "translateY(0)";
                         }}
                     >
-                        🔄 Chơi lại
+                        🔄 {t('game.playAgain')}
                     </button>
 
                     <button
@@ -121,7 +119,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                             e.currentTarget.style.transform = "translateY(0)";
                         }}
                     >
-                        👁️ Xem lại
+                        👁️ {t('game.review')}
                     </button>
                 </div>
             </motion.div>
