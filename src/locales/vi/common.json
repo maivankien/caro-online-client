@@ -101,6 +101,7 @@
         "winConditionCount": "{{count}} quân",
         "boardSizeFormat": "{{size}}x{{size}}",
         "joinBtn": "Tham gia",
+        "joining": "Đang tham gia...",
         "fullBtn": "Đầy",
         "watchBtn": "Xem",
         "retry": "Thử lại",

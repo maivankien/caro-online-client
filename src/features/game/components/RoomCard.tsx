@@ -8,6 +8,7 @@ const { Title, Text } = Typography
 interface IRoomCardProps {
     room: IRoom
     onJoinRoom: (roomId: string) => void
+    isJoining?: boolean
 }
 
 const getStatusColor = (status: string) => {
@@ -23,8 +24,20 @@ const getStatusColor = (status: string) => {
     }
 }
 
-const RoomCard = ({ room, onJoinRoom }: IRoomCardProps) => {
+const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
     const { t } = useTranslation()
+
+    const isDisabled = room.status !== 'waiting' || room.currentPlayers >= room.maxPlayers || isJoining
+
+    const getButtonText = () => {
+        if (isJoining) {
+            return t('roomList.joining')
+        }
+        if (room.currentPlayers >= room.maxPlayers) {
+            return t('roomList.fullBtn')
+        }
+        return t('roomList.joinBtn')
+    }
 
     return (
         <Card
@@ -34,10 +47,11 @@ const RoomCard = ({ room, onJoinRoom }: IRoomCardProps) => {
                 <Button
                     key="join"
                     type="primary"
-                    disabled={room.status !== 'waiting' || room.currentPlayers >= room.maxPlayers}
+                    disabled={isDisabled}
+                    loading={isJoining}
                     onClick={() => onJoinRoom(room.id)}
                 >
-                    {room.currentPlayers >= room.maxPlayers ? t('roomList.fullBtn') : t('roomList.joinBtn')}
+                    {getButtonText()}
                 </Button>
             ]}
         >
