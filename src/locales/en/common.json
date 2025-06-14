@@ -93,6 +93,8 @@
         "title": "Room List",
         "totalRooms": "{{total}} rooms",
         "refresh": "🔄 Refresh",
+        "autoRefresh": "Auto-refresh",
+        "lastUpdated": "Last updated",
         "createdBy": "Created by:",
         "players": "Players:",
         "boardSize": "Board:",

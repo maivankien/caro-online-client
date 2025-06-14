@@ -1,10 +1,12 @@
 import { gameApi } from '../services/gameApi'
 import type { ICreateRoomRequest } from '../types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 export const useRooms = () => {
     const queryClient = useQueryClient()
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize] = useState(8)
 
     const {
         data: roomsData,
@@ -12,10 +14,10 @@ export const useRooms = () => {
         error,
         refetch
     } = useQuery({
-        queryKey: ['rooms'],
+        queryKey: ['rooms', currentPage, pageSize],
         queryFn: () => {
             console.log('🔄 Fetching rooms at:', new Date().toLocaleTimeString())
-            return gameApi.getRooms()
+            return gameApi.getRooms({ page: currentPage, limit: pageSize })
         },
         refetchInterval: 5000, // Auto-refresh every 5 seconds
         refetchIntervalInBackground: true, // Continue refreshing even when tab is not active
@@ -30,6 +32,10 @@ export const useRooms = () => {
             return []
         }
         return roomsData.data.rooms
+    }, [roomsData])
+
+    const total = useMemo(() => {
+        return roomsData?.data?.total ?? 0
     }, [roomsData])
 
     const createRoomMutation = useMutation({
@@ -54,14 +60,21 @@ export const useRooms = () => {
         return joinRoomMutation.mutateAsync({ roomId, password })
     }
 
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page)
+    }
 
     return {
         rooms,
+        total,
+        currentPage,
+        pageSize,
         isLoading,
         error,
         refetch,
         createRoom,
         joinRoom,
+        handlePageChange,
         isCreating: createRoomMutation.isPending,
         isJoining: joinRoomMutation.isPending,
         createError: createRoomMutation.error,

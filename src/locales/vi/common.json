@@ -94,6 +94,8 @@
         "title": "Danh sách phòng",
         "totalRooms": "{{total}} phòng",
         "refresh": "🔄 Làm mới",
+        "autoRefresh": "Tự động làm mới",
+        "lastUpdated": "Cập nhật lần cuối",
         "createdBy": "Người tạo:",
         "players": "Người chơi:",
         "boardSize": "Bàn cờ:",

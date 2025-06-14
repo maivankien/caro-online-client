@@ -10,31 +10,23 @@ const RoomList = () => {
     const { t } = useTranslation()
     const {
         rooms,
+        total,
+        currentPage,
+        pageSize,
         isLoading,
         error,
         refetch,
         joinRoom,
+        handlePageChange,
         isJoining,
         joinError
     } = useRooms()
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize] = useState(8) // 8 rooms per page
     const [lastFetchTime, setLastFetchTime] = useState<Date>(new Date())
 
     useEffect(() => {
         setLastFetchTime(new Date())
     }, [rooms])
-
-    // Calculate pagination
-    const startIndex = (currentPage - 1) * pageSize
-    const endIndex = startIndex + pageSize
-    const paginatedRooms = rooms.slice(startIndex, endIndex)
-    const total = rooms.length
-
-    const handlePageChange = (page: number) => {
-        setCurrentPage(page)
-    }
 
     const handleJoinRoom = async (roomId: string) => {
         try {
@@ -78,7 +70,7 @@ const RoomList = () => {
                         marginLeft: '8px',
                         fontWeight: 'normal'
                     }}>
-                        (Auto-refresh • Last updated: {lastFetchTime.toLocaleTimeString()})
+                        ({t('roomList.autoRefresh')} • {t('roomList.lastUpdated')}: {lastFetchTime.toLocaleTimeString()})
                     </small>
                 </Title>
                 <Button type="primary" onClick={handleRefresh} loading={isLoading}>
@@ -95,8 +87,8 @@ const RoomList = () => {
                     ))
                 )}
 
-                {!isLoading && paginatedRooms.length > 0 && (
-                    paginatedRooms.map((room) => (
+                {!isLoading && rooms.length > 0 && (
+                    rooms.map((room) => (
                         <Col xs={24} sm={12} lg={8} xl={6} key={room.id}>
                             <RoomCard
                                 room={room}
