@@ -20,7 +20,7 @@ const HomePage = () => {
         const storedUser = localStorage.getItem('user')
 
         if (storedToken && storedUser) {
-            navigate('/game')
+            navigate('/room')
         }
     }, [navigate])
 
@@ -34,7 +34,7 @@ const HomePage = () => {
         setLocalMessage(null)
 
         await createGuest({ name: username })
-        navigate('/game')
+        navigate('/room')
     }
 
     return (

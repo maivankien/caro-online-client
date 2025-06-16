@@ -1,13 +1,13 @@
-import '../styles/pages/GamePage.css'
+import '../styles/pages/RoomPage.css'
 import '../styles/components/RoomList.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { RoomList, CreateRoomModal } from '@/features/game/components'
+import { RoomList, CreateRoomModal } from '@/features/room/components'
 import { useTranslation } from '../hooks/useTranslation'
 import { authApi } from '@/features/auth/services/authApi'
 import AppHeader from '@/components/AppHeader'
 
-const GamePage = () => {
+const RoomPage = () => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
     const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false)
@@ -32,21 +32,21 @@ const GamePage = () => {
 
     if (isLoading) {
         return (
-            <div className="game-page">
+            <div className="room-page">
                 <div className="loading-container">
                     <div className="spinner"></div>
-                    <p>{t('game.loading')}</p>
+                    <p>{t('room.loading')}</p>
                 </div>
             </div>
         )
     }
 
     return (
-        <div className="game-page">
-            <AppHeader title={t('game.title')} />
+        <div className="room-page">
+            <AppHeader title={t('room.title')} />
             
-            <main className="game-content">
-                <div className="game-actions">
+            <main className="room-content">
+                <div className="room-actions">
                     <button 
                         onClick={handleOpenCreateRoom}
                         className="create-room-btn"
@@ -66,4 +66,4 @@ const GamePage = () => {
     )
 }
 
-export default GamePage 
+export default RoomPage 

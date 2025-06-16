@@ -1,4 +1,4 @@
-.game-page {
+.room-page {
     min-height: 100vh;
     background-color: #f0f2f5;
     display: flex;
@@ -23,7 +23,7 @@
     animation: spin 1s linear infinite;
 }
 
-.game-header {
+.room-header {
     background-color: white;
     padding: 16px 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -74,13 +74,13 @@
     background-color: #ff7875;
 }
 
-.game-content {
+.room-content {
     flex: 1;
     width: 100%;
     background: transparent;
 }
 
-.game-actions {
+.room-actions {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
@@ -113,7 +113,7 @@
     box-shadow: 0 2px 4px rgba(24, 144, 255, 0.2);
 }
 
-/* Responsive design for GamePage */
+/* Responsive design for RoomPage */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;

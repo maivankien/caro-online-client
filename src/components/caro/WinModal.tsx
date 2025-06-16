@@ -53,7 +53,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     marginBottom: "16px",
                     margin: 0
                 }}>
-                    {t('game.congratulations')}
+                    {t('room.congratulations')}
                 </h2>
 
                 <p style={{
@@ -62,7 +62,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     marginBottom: "30px",
                     margin: "0 0 30px 0"
                 }}>
-                    {t('game.playerWon', { player: winner })}
+                    {t('room.playerWon', { player: winner })}
                 </p>
 
                 <div style={{
@@ -93,7 +93,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                             e.currentTarget.style.transform = "translateY(0)";
                         }}
                     >
-                        🔄 {t('game.playAgain')}
+                        🔄 {t('room.playAgain')}
                     </button>
 
                     <button
@@ -119,7 +119,7 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                             e.currentTarget.style.transform = "translateY(0)";
                         }}
                     >
-                        👁️ {t('game.review')}
+                        👁️ {t('room.review')}
                     </button>
                 </div>
             </motion.div>

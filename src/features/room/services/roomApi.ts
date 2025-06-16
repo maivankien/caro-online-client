@@ -13,7 +13,7 @@ interface IRoomListParams {
     limit?: number
 }
 
-export const gameApi = {
+export const roomApi = {
     getRooms: async (params?: IRoomListParams): Promise<IRoomListResponse> => {
         const queryParams = new URLSearchParams()
         if (params?.page) {

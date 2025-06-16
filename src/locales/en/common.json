@@ -1,17 +1,17 @@
 {
     "welcome": "Welcome to Caro Online",
-    "game": {
-        "title": "Caro Game",
-        "newGame": "New Game",
-        "joinGame": "Join Game",
-        "gameRoom": "Game Room",
+    "room": {
+        "title": "Caro Room",
+        "newRoom": "New Room",
+        "joinRoom": "Join Room",
+        "gameRoom": "Room Room",
         "waiting": "Waiting for opponent...",
         "yourTurn": "Your turn",
         "opponentTurn": "Opponent's turn",
         "winner": "Winner: {{player}}",
         "draw": "Draw!",
-        "gameOver": "Game Over",
-        "gameEnded": "Game ended",
+        "gameOver": "Room Over",
+        "gameEnded": "Room ended",
         "turnOf": "Turn of: {{player}}",
         "playerWon": "Player {{player}} won!",
         "congratulations": "Congratulations!",
@@ -61,7 +61,7 @@
     },
     "gamepage": {
         "welcomeUser": "Welcome, {{name}}!",
-        "gameActions": "Game Actions"
+        "gameActions": "Room Actions"
     },
     "gamePage": {
         "welcomeUser": "Welcome, {{name}}!",
@@ -75,7 +75,7 @@
     },
     "messages": {
         "cellOccupied": "This cell is already occupied!",
-        "gameAlreadyEnded": "Game has already ended, cannot continue playing!"
+        "gameAlreadyEnded": "Room has already ended, cannot continue playing!"
     },
     "api": {
         "validation": {

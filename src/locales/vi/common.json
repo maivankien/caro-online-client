@@ -1,9 +1,9 @@
 {
     "welcome": "Chào mừng đến với Caro Online",
-    "game": {
+    "room": {
         "title": "Trò chơi Caro",
-        "newGame": "Trò chơi mới",
-        "joinGame": "Tham gia trò chơi",
+        "newRoom": "Trò chơi mới",
+        "joinRoom": "Tham gia trò chơi",
         "gameRoom": "Phòng chơi",
         "waiting": "Đang chờ đối thủ...",
         "yourTurn": "Lượt của bạn",
@@ -11,7 +11,7 @@
         "winner": "Người thắng: {{player}}",
         "draw": "Hòa!",
         "gameOver": "Kết thúc trò chơi",
-        "gameEnded": "Game đã kết thúc",
+        "gameEnded": "Room đã kết thúc",
         "turnOf": "Lượt của: {{player}}",
         "playerWon": "Người chơi {{player}} đã chiến thắng!",
         "congratulations": "Chúc mừng!",
@@ -76,7 +76,7 @@
     },
     "messages": {
         "cellOccupied": "Ô này đã có quân!",
-        "gameAlreadyEnded": "Game đã kết thúc, không thể đánh tiếp!"
+        "gameAlreadyEnded": "Room đã kết thúc, không thể đánh tiếp!"
     },
     "api": {
         "validation": {

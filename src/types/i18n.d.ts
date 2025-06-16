@@ -6,10 +6,10 @@ declare module '*.json' {
 export interface ITranslationResources {
     common: {
         welcome: string;
-        game: {
+        room: {
             title: string;
-            newGame: string;
-            joinGame: string;
+            newRoom: string;
+            joinRoom: string;
             gameRoom: string;
             waiting: string;
             yourTurn: string;

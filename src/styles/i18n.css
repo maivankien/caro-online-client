@@ -48,22 +48,22 @@
     color: #333;
 }
 
-.game-page .header-actions {
+.room-page .header-actions {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.game-page .language-switcher {
+.room-page .language-switcher {
     margin: 0;
 }
 
-.game-page .header-actions .language-switcher label {
+.room-page .header-actions .language-switcher label {
     color: #333;
 }
 
-.game-page>.language-switcher label,
-.game-page .game-container>.language-switcher label {
+.room-page>.language-switcher label,
+.room-page .room-container>.language-switcher label {
     color: #fff;
 }
 

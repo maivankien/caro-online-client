@@ -75,12 +75,6 @@ const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
                 </div>
 
                 <div className="room-info-item">
-                    <UserOutlined />
-                    <Text strong>{t('roomList.players')} </Text>
-                    <Text>{room.currentPlayers}/{room.maxPlayers}</Text>
-                </div>
-
-                <div className="room-info-item">
                     <AppstoreOutlined />
                     <Text strong>{t('roomList.boardSize')} </Text>
                     <Text>{t('roomList.boardSizeFormat', { size: room.boardSize })}</Text>

@@ -1,7 +1,7 @@
 export type Player = "X" | "O";
 
 /**
- * Kiểm tra điều kiện chiến thắng trong game Caro/Gomoku
+ * Kiểm tra điều kiện chiến thắng trong room Caro/Gomoku
  * @param board - Bàn cờ hiện tại (2D array)
  * @param lastMoveRow - Hàng của nước đi vừa thực hiện
  * @param lastMoveCol - Cột của nước đi vừa thực hiện

@@ -20,7 +20,7 @@ const AppHeader = ({ title, showLogout = true, showWelcomeMessage = true }: IApp
     }
 
     return (
-        <header className="game-header">
+        <header className="room-header">
             <div className="header-content">
                 <div className="header-left">
                     <h1>{title}</h1>

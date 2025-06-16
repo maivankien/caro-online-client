@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { checkWinCondition, isPositionInWinningLine, type Player } from "@/utils/caroGameLogic";
 import WinModal from "@/components/caro/WinModal";
-import GameInfo from "@/components/caro/GameInfo";
+import RoomInfo from "@/components/caro/GameInfo";
 import BoardCell from "@/components/caro/BoardCell";
 import { useTranslation } from "../../hooks/useTranslation";
+import { checkWinCondition, isPositionInWinningLine, type Player } from "@/utils/caroGameLogic";
 
 /**
  * Caro (Gomoku) board UI component – V4
@@ -41,11 +41,11 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
     const [turn, setTurn] = useState<Player>("X");
     const [winner, setWinner] = useState<Player | null>(null);
     const [winningPositions, setWinningPositions] = useState<[number, number][]>([]);
-    const [gameEnded, setGameEnded] = useState<boolean>(false);
+    const [gameEnded, setRoomEnded] = useState<boolean>(false);
     const { t } = useTranslation();
 
     const handleClick = (r: number, c: number) => {
-        // Ngăn hoàn toàn không cho đánh nếu game đã kết thúc
+        // Ngăn hoàn toàn không cho đánh nếu room đã kết thúc
         if (gameEnded) {
             console.log(t('messages.gameAlreadyEnded'));
             return;
@@ -66,20 +66,20 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
         if (winPositions) {
             setWinner(turn);
             setWinningPositions(winPositions);
-            setGameEnded(true);
-            console.log(t('game.playerWon', { player: turn }));
+            setRoomEnded(true);
+            console.log(t('room.playerWon', { player: turn }));
         }
 
         onMove?.(r, c, turn);
         setTurn((prev) => (prev === "X" ? "O" : "X"));
     };
 
-    const resetGame = () => {
+    const resetRoom = () => {
         setBoard(Array.from({ length: size }, () => Array<Player | null>(size).fill(null)));
         setTurn("X");
         setWinner(null);
         setWinningPositions([]);
-        setGameEnded(false);
+        setRoomEnded(false);
     };
 
     const handleReview = () => {
@@ -107,13 +107,13 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
             {winner && (
                 <WinModal
                     winner={winner}
-                    onPlayAgain={resetGame}
+                    onPlayAgain={resetRoom}
                     onReview={handleReview}
                 />
             )}
 
             {/* Thông tin lượt chơi */}
-            <GameInfo turn={turn} gameEnded={gameEnded} />
+            <RoomInfo turn={turn} gameEnded={gameEnded} />
 
             {/* Bàn cờ */}
             <div style={{

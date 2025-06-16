@@ -1,5 +1,5 @@
 import HomePage from '@/pages/HomePage'
-import GamePage from '@/pages/GamePage'
+import RoomPage from '@/pages/RoomPage'
 import { Routes, Route } from 'react-router-dom'
 import CaroBoard from '@/components/caro/CaroBoard'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
@@ -21,7 +21,7 @@ const Router = () => {
             <QueryClientProvider client={queryClient}>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/game" element={<GamePage />} />
+                    <Route path="/room" element={<RoomPage />} />
                     <Route path="/caro" element={<CaroBoard />} />
                 </Routes>
             </QueryClientProvider>

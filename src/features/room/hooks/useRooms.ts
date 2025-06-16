@@ -1,7 +1,7 @@
-import { gameApi } from '../services/gameApi'
+import { useMemo, useState } from 'react'
+import { roomApi } from '../services/roomApi'
 import type { ICreateRoomRequest } from '../types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useMemo, useState } from 'react'
 
 export const useRooms = () => {
     const queryClient = useQueryClient()
@@ -17,7 +17,7 @@ export const useRooms = () => {
         queryKey: ['rooms', currentPage, pageSize],
         queryFn: () => {
             console.log('🔄 Fetching rooms at:', new Date().toLocaleTimeString())
-            return gameApi.getRooms({ page: currentPage, limit: pageSize })
+            return roomApi.getRooms({ page: currentPage, limit: pageSize })
         },
         refetchInterval: 5000, // Auto-refresh every 5 seconds
         refetchIntervalInBackground: true, // Continue refreshing even when tab is not active
@@ -39,14 +39,14 @@ export const useRooms = () => {
     }, [roomsData])
 
     const createRoomMutation = useMutation({
-        mutationFn: gameApi.createRoom,
+        mutationFn: roomApi.createRoom,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['rooms'] })
         },
     })
 
     const joinRoomMutation = useMutation({
-        mutationFn: gameApi.joinRoom,
+        mutationFn: roomApi.joinRoom,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['rooms'] })
         },

@@ -3,12 +3,12 @@ import { type Player } from "@/utils/caroGameLogic";
 import { PLAYER_COLORS } from "@/utils/colors";
 import { useTranslation } from "../../hooks/useTranslation";
 
-interface GameInfoProps {
+interface RoomInfoProps {
     turn: Player;
     gameEnded: boolean;
 }
 
-const GameInfo: React.FC<GameInfoProps> = ({ turn, gameEnded }) => {
+const RoomInfo: React.FC<RoomInfoProps> = ({ turn, gameEnded }) => {
     const { t } = useTranslation();
     
     return (
@@ -18,9 +18,9 @@ const GameInfo: React.FC<GameInfoProps> = ({ turn, gameEnded }) => {
             fontWeight: "600",
             color: gameEnded ? "#9ca3af" : PLAYER_COLORS[turn]
         }}>
-            {gameEnded ? t('game.gameEnded') : t('game.turnOf', { player: turn })}
+            {gameEnded ? t('room.gameEnded') : t('room.turnOf', { player: turn })}
         </div>
     );
 };
 
-export default GameInfo; 
+export default RoomInfo; 

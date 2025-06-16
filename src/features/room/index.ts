@@ -8,4 +8,4 @@ export * from './hooks';
 export * from './components';
 
 // Services
-export { gameApi } from './services/gameApi'; 
+export { roomApi } from './services/roomApi'; 
