@@ -4,6 +4,7 @@ import type {
     IRoomListResponse,
     IJoinRoomRequest,
     IJoinRoomResponse,
+    IRoom,
 } from '../types';
 import { apiClient } from '@/api/base/client';
 import { API_ENDPOINTS } from '@/config/api.config';
@@ -11,6 +12,11 @@ import { API_ENDPOINTS } from '@/config/api.config';
 interface IRoomListParams {
     page?: number
     limit?: number
+}
+
+interface IRoomDetailResponse {
+    data: IRoom
+    message: string
 }
 
 export const roomApi = {
@@ -28,6 +34,10 @@ export const roomApi = {
             : API_ENDPOINTS.ROOM_LIST
             
         return await apiClient.get(url)
+    },
+
+    getRoomDetail: async (roomId: string): Promise<IRoomDetailResponse> => {
+        return await apiClient.get(`${API_ENDPOINTS.ROOM_LIST}/${roomId}`)
     },
 
     createRoom: async (data: ICreateRoomRequest): Promise<ICreateRoomResponse> => {

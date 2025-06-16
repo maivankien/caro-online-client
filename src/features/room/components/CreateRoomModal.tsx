@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useRooms } from '../hooks/useRooms'
 import type { ICreateRoomRequest } from '../types'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -10,6 +11,7 @@ interface ICreateRoomModalProps {
 }
 
 export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
+    const navigate = useNavigate()
     const { createRoom, isCreating, createError } = useRooms()
     const { t } = useTranslation()
 
@@ -30,7 +32,7 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
                 password: formData.password ?? undefined
             }
 
-            await createRoom(roomData)
+            const result = await createRoom(roomData)
             onClose()
 
             setFormData({
@@ -40,6 +42,11 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
                 winCondition: 5,
                 isPrivate: false
             })
+
+            if (result?.data?.id) {
+                navigate(`/room/${result.data.id}`)
+            }
+            
         } catch (error) {
             console.error('Failed to create room:', error)
         }

@@ -31,7 +31,6 @@ const RoomList = () => {
     const handleJoinRoom = async (roomId: string) => {
         try {
             await joinRoom(roomId)
-            console.log('Successfully joined room:', roomId)
         } catch (error) {
             console.error('Failed to join room:', error)
         }

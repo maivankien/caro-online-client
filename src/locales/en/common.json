@@ -96,7 +96,6 @@
         "autoRefresh": "Auto-refresh",
         "lastUpdated": "Last updated",
         "createdBy": "Created by:",
-        "players": "Players:",
         "boardSize": "Board:",
         "winCondition": "Win:",
         "winConditionCount": "{{count}} in a row",

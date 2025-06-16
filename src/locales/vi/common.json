@@ -97,7 +97,6 @@
         "autoRefresh": "Tự động làm mới",
         "lastUpdated": "Cập nhật lần cuối",
         "createdBy": "Người tạo:",
-        "players": "Người chơi:",
         "boardSize": "Bàn cờ:",
         "winCondition": "Thắng:",
         "winConditionCount": "{{count}} quân",
