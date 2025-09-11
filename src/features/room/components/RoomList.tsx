@@ -1,6 +1,7 @@
 import RoomCard from './RoomCard'
 import { useRooms } from '../hooks/useRooms'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Card, Button, Pagination, Row, Col, Typography } from 'antd'
 
@@ -22,6 +23,8 @@ const RoomList = () => {
         joinError
     } = useRooms()
 
+    const navigate = useNavigate()
+
     const [lastFetchTime, setLastFetchTime] = useState<Date>(new Date())
 
     useEffect(() => {
@@ -29,11 +32,8 @@ const RoomList = () => {
     }, [rooms])
 
     const handleJoinRoom = async (roomId: string) => {
-        try {
-            await joinRoom(roomId)
-        } catch (error) {
-            console.error('Failed to join room:', error)
-        }
+        await joinRoom(roomId)
+        navigate(`/game/${roomId}`)
     }
 
     const handleRefresh = () => {

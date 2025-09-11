@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import '@/styles/pages/RoomLobbyPage.css'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from '@/hooks/useTranslation'
-import { authApi } from '@/features/auth/services/authApi'
+import { useRoomSocket } from '@/features/room/hooks/useRoomSocket'
 import { roomApi } from '@/features/room/services/roomApi'
 import AppHeader from '@/components/AppHeader'
 import type { IRoom } from '@/features/room/types'
-import '@/styles/pages/RoomLobbyPage.css'
+import { EVENT_SOCKET_CONSTANTS } from '@/constants/socket.constants'
 
 const RoomLobbyPage = () => {
     const { roomId } = useParams<{ roomId: string }>()
@@ -15,15 +16,27 @@ const RoomLobbyPage = () => {
     const [room, setRoom] = useState<IRoom | null>(null)
     const [error, setError] = useState<string>('')
 
+    const { connected, emit, on } = useRoomSocket()
+
+    const handleBackToRooms = useCallback(() => {
+        if (roomId) {
+            emit('room:leave', { roomId })
+        }
+        navigate('/room')
+    }, [emit, navigate, roomId])
+
+    const handleUserJoinRoom = useCallback(() => {
+        navigate(`/game/${roomId}`)
+    }, [navigate, roomId])
+
     useEffect(() => {
         const loadRoomData = async () => {
             try {
-                await authApi.verifyToken()
-
                 if (roomId) {
                     const roomResponse = await roomApi.getRoomDetail(roomId)
                     setRoom(roomResponse.data)
                 }
+
                 setIsLoading(false)
             } catch (error) {
                 console.error('Failed to load room:', error)
@@ -35,9 +48,23 @@ const RoomLobbyPage = () => {
         loadRoomData()
     }, [roomId])
 
-    const handleBackToRooms = () => {
-        navigate('/room')
-    }
+    useEffect(() => {
+        if (connected && roomId) {
+            emit('room:join', { roomId })
+        }
+    }, [connected, roomId, emit])
+
+    useEffect(() => {
+        if (!connected) {
+            return
+        }
+
+        const unsubscribeGameStart = on(EVENT_SOCKET_CONSTANTS.ROOM_JOINED, handleUserJoinRoom)
+
+        return () => {
+            unsubscribeGameStart()
+        }
+    }, [connected, on, handleUserJoinRoom])
 
     if (isLoading) {
         return (

@@ -36,7 +36,7 @@ export const roomApi = {
         return await apiClient.get(url)
     },
 
-    getRoomDetail: async (roomId: string): Promise<IRoomDetailResponse> => {
+    getRoomDetail: async (roomId: string | undefined): Promise<IRoomDetailResponse> => {
         return await apiClient.get(`${API_ENDPOINTS.ROOM_LIST}/${roomId}`)
     },
 

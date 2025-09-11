@@ -41,7 +41,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
     const [turn, setTurn] = useState<Player>("X");
     const [winner, setWinner] = useState<Player | null>(null);
     const [winningPositions, setWinningPositions] = useState<[number, number][]>([]);
-    const [gameEnded, setRoomEnded] = useState<boolean>(false);
+    const [gameEnded, setGameEnded] = useState<boolean>(false);
     const { t } = useTranslation();
 
     const handleClick = (r: number, c: number) => {
@@ -66,7 +66,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
         if (winPositions) {
             setWinner(turn);
             setWinningPositions(winPositions);
-            setRoomEnded(true);
+            setGameEnded(true);
             console.log(t('room.playerWon', { player: turn }));
         }
 
@@ -79,7 +79,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({ size = 15, cellSize = 40, onMove 
         setTurn("X");
         setWinner(null);
         setWinningPositions([]);
-        setRoomEnded(false);
+        setGameEnded(false);
     };
 
     const handleReview = () => {

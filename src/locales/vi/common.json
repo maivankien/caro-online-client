@@ -21,6 +21,13 @@
         "creating": "Đang tạo...",
         "creatingGuestUser": "Đang tạo guest user..."
     },
+    "game": {
+        "title": "Phòng Game",
+        "status": "Trạng thái:",
+        "connected": "Đã kết nối",
+        "disconnected": "Mất kết nối",
+        "leaveGame": "Rời Game"
+    },
     "player": {
         "player1": "Người chơi 1",
         "player2": "Người chơi 2",

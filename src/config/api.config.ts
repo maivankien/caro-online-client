@@ -1,12 +1,14 @@
 export const API_CONFIG = {
     BASE_URL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000',
-    WEBSOCKET_URL: import.meta.env.VITE_WEBSOCKET_URL ?? 'ws://localhost:3000',
     TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT ?? '10000'),
     HEADERS: {
         'Content-Type': 'application/json',
     },
 } as const
 
+
+
+export const WEBSOCKET_URL = import.meta.env.VITE_WEBSOCKET_URL ?? 'ws://localhost:3000'
 
 export const API_ENDPOINTS = {
     // Auth endpoints
@@ -20,3 +22,7 @@ export const API_ENDPOINTS = {
     ROOM_JOIN: '/api/rooms/join',
 } as const
 
+
+export const SOCKET_NAMESPACE = {
+    ROOM: '/room',
+} as const
