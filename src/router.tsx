@@ -5,7 +5,7 @@ import RoomLobbyPage from '@/pages/RoomLobbyPage'
 import { Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { SocketProvider } from '@/sockets/context/SocketProvider'
+import { RoomSocketProvider } from '@/sockets/context/RoomSocketProvider'
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -26,17 +26,17 @@ const Router = () => {
                     <Route 
                         path="/room/:roomId" 
                         element={
-                            <SocketProvider namespace="/room">
+                            <RoomSocketProvider namespace="/room">
                                 <RoomLobbyPage />
-                            </SocketProvider>
+                            </RoomSocketProvider>
                         } 
                     />
                     <Route 
                         path="/game/:roomId" 
                         element={
-                            <SocketProvider namespace="/game">
+                            <RoomSocketProvider namespace="/game">
                                 <GamePage />
-                            </SocketProvider>
+                            </RoomSocketProvider>
                         } 
                     />
                 </Routes>   

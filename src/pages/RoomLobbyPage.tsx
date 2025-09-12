@@ -16,18 +16,15 @@ const RoomLobbyPage = () => {
     const [room, setRoom] = useState<IRoom | null>(null)
     const [error, setError] = useState<string>('')
 
-    const { connected, emit, on } = useRoomSocket()
+    const { connected, on } = useRoomSocket()
 
     const handleBackToRooms = useCallback(() => {
-        if (roomId) {
-            emit('room:leave', { roomId })
-        }
         navigate('/room')
-    }, [emit, navigate, roomId])
+    }, [navigate])
 
-    const handleUserJoinRoom = useCallback(() => {
+    const handleGameStart = useCallback(() => {
         navigate(`/game/${roomId}`)
-    }, [navigate, roomId])
+    }, [navigate])
 
     useEffect(() => {
         const loadRoomData = async () => {
@@ -49,22 +46,18 @@ const RoomLobbyPage = () => {
     }, [roomId])
 
     useEffect(() => {
-        if (connected && roomId) {
-            emit('room:join', { roomId })
-        }
-    }, [connected, roomId, emit])
-
-    useEffect(() => {
         if (!connected) {
             return
         }
 
-        const unsubscribeGameStart = on(EVENT_SOCKET_CONSTANTS.ROOM_JOINED, handleUserJoinRoom)
+        const unsubscribeUserJoined = on(EVENT_SOCKET_CONSTANTS.ROOM_JOINED, (data) => {
+            handleGameStart()
+        })
 
         return () => {
-            unsubscribeGameStart()
+            unsubscribeUserJoined()
         }
-    }, [connected, on, handleUserJoinRoom])
+    }, [connected, on, handleGameStart])
 
     if (isLoading) {
         return (
