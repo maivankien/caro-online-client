@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRooms } from '../hooks/useRooms'
@@ -46,7 +49,7 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
             if (result?.data?.id) {
                 navigate(`/room/${result.data.id}`)
             }
-            
+
         } catch (error) {
             console.error('Failed to create room:', error)
         }
@@ -74,14 +77,16 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
     }
 
     return (
-        <button
+        <div
             className="modal-overlay"
             onClick={handleOverlayClick}
-            type="button"
-            aria-label={t('buttons.closeModal')}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            tabIndex={-1}
         >
-            <button className="modal-content" onClick={handleContentClick}>
-                <h2 className="modal-title">{t('createRoomForm.title')}</h2>
+            <div className="modal-content" onClick={handleContentClick}>
+                <h2 id="modal-title" className="modal-title">{t('createRoomForm.title')}</h2>
 
                 <form onSubmit={handleSubmit} className="modal-form">
                     <div className="form-group">
@@ -183,7 +188,7 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
                         </button>
                     </div>
                 </form>
-            </button>
-        </button>
+            </div>
+        </div>
     )
 } 

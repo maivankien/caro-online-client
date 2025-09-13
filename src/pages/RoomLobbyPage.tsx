@@ -19,11 +19,11 @@ const RoomLobbyPage = () => {
     const { connected, on } = useRoomSocket()
 
     const handleBackToRooms = useCallback(() => {
-        navigate('/room')
+        navigate('/room', { replace: false })
     }, [navigate])
 
     const handleGameStart = useCallback(() => {
-        navigate(`/game/${roomId}`)
+        navigate(`/game/${roomId}`, { replace: false })
     }, [navigate])
 
     useEffect(() => {
