@@ -37,29 +37,31 @@ const BoardCell: React.FC<BoardCellProps> = ({
             style={{
                 width: cellSize,
                 height: cellSize,
-                backgroundColor: gameEnded ? "#1f2937" : "#262626",
-                borderRadius: "6px",
+                backgroundColor: gameEnded ? "#f1f5f9" : "#ffffff",
+                borderRadius: "4px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: gameEnded ? "not-allowed" : "pointer",
-                border: "1px solid #525252",
+                border: "1px solid #e5e7eb",
                 transition: "all 0.2s ease",
                 padding: 0,
                 outline: "none",
                 opacity: gameEnded && !isWinning ? 0.7 : 1,
-                boxShadow: isWinning ? "0 0 8px rgba(251, 191, 36, 0.4)" : "none"
+                boxShadow: isWinning ? "0 0 8px rgba(251, 191, 36, 0.4)" : "0 1px 3px rgba(0, 0, 0, 0.1)"
             }}
             onMouseEnter={(e) => {
                 if (!gameEnded && !isWinning) {
-                    e.currentTarget.style.backgroundColor = "#374151";
-                    e.currentTarget.style.boxShadow = "0 0 0 2px #06b6d4";
+                    e.currentTarget.style.backgroundColor = "#f0f9ff";
+                    e.currentTarget.style.boxShadow = "0 0 0 2px #3b82f6";
+                    e.currentTarget.style.borderColor = "#3b82f6";
                 }
             }}
             onMouseLeave={(e) => {
                 if (!gameEnded && !isWinning) {
-                    e.currentTarget.style.backgroundColor = "#262626";
-                    e.currentTarget.style.boxShadow = "none";
+                    e.currentTarget.style.backgroundColor = "#ffffff";
+                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(0, 0, 0, 0.1)";
+                    e.currentTarget.style.borderColor = "#e5e7eb";
                 }
             }}
         >

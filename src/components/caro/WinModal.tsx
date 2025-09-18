@@ -4,13 +4,51 @@ import { type Player } from "@/utils/caroGameLogic";
 import { useTranslation } from "../../hooks/useTranslation";
 
 interface WinModalProps {
-    winner: Player;
-    onPlayAgain: () => void;
-    onReview: () => void;
+    winner: Player | null
+    isCurrentUserWinner?: boolean
+    winnerName?: string
+    onPlayAgain?: () => void
+    onReview?: () => void
 }
 
-const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) => {
-    const { t } = useTranslation();
+const WinModal: React.FC<WinModalProps> = ({
+    winner,
+    isCurrentUserWinner = false,
+    winnerName,
+    onPlayAgain,
+    onReview
+}) => {
+    const { t } = useTranslation()
+
+    const getGameResultInfo = () => {
+        if (!winner) {
+            return {
+                emoji: "🤝",
+                title: "Hòa!",
+                message: "Trò chơi kết thúc với kết quả hòa",
+                titleColor: "#6b7280"
+            }
+        }
+
+        if (isCurrentUserWinner) {
+            return {
+                emoji: "🎉",
+                title: "Chúc mừng!",
+                message: "Bạn đã chiến thắng!",
+                titleColor: "#10b981"
+            }
+        } else {
+            const displayName = winnerName || `Người chơi ${winner}`
+            return {
+                emoji: "😢",
+                title: "Thất bại!",
+                message: `${displayName} đã chiến thắng`,
+                titleColor: "#ef4444"
+            }
+        }
+    }
+
+    const resultInfo = getGameResultInfo()
 
     return (
         <div style={{
@@ -43,17 +81,17 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     fontSize: "60px",
                     marginBottom: "20px"
                 }}>
-                    🎉
+                    {resultInfo.emoji}
                 </div>
 
                 <h2 style={{
                     fontSize: "28px",
                     fontWeight: "bold",
-                    color: "#1f2937",
+                    color: resultInfo.titleColor,
                     marginBottom: "16px",
                     margin: 0
                 }}>
-                    {t('room.congratulations')}
+                    {resultInfo.title}
                 </h2>
 
                 <p style={{
@@ -62,66 +100,72 @@ const WinModal: React.FC<WinModalProps> = ({ winner, onPlayAgain, onReview }) =>
                     marginBottom: "30px",
                     margin: "0 0 30px 0"
                 }}>
-                    {t('room.playerWon', { player: winner })}
+                    {resultInfo.message}
                 </p>
 
-                <div style={{
-                    display: "flex",
-                    gap: "12px",
-                    justifyContent: "center"
-                }}>
-                    <button
-                        onClick={onPlayAgain}
-                        style={{
-                            padding: "12px 24px",
-                            backgroundColor: "#3b82f6",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: "16px",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#2563eb";
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#3b82f6";
-                            e.currentTarget.style.transform = "translateY(0)";
-                        }}
-                    >
-                        🔄 {t('room.playAgain')}
-                    </button>
+                {(onPlayAgain || onReview) && (
+                    <div style={{
+                        display: "flex",
+                        gap: "12px",
+                        justifyContent: "center"
+                    }}>
+                        {onPlayAgain && (
+                            <button
+                                onClick={onPlayAgain}
+                                style={{
+                                    padding: "12px 24px",
+                                    backgroundColor: "#3b82f6",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "10px",
+                                    fontSize: "16px",
+                                    fontWeight: "600",
+                                    cursor: "pointer",
+                                    transition: "all 0.2s ease",
+                                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#2563eb";
+                                    e.currentTarget.style.transform = "translateY(-1px)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#3b82f6";
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                }}
+                            >
+                                🔄 {t('room.playAgain')}
+                            </button>
+                        )}
 
-                    <button
-                        onClick={onReview}
-                        style={{
-                            padding: "12px 24px",
-                            backgroundColor: "#6b7280",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "10px",
-                            fontSize: "16px",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#4b5563";
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#6b7280";
-                            e.currentTarget.style.transform = "translateY(0)";
-                        }}
-                    >
-                        👁️ {t('room.review')}
-                    </button>
-                </div>
+                        {onReview && (
+                            <button
+                                onClick={onReview}
+                                style={{
+                                    padding: "12px 24px",
+                                    backgroundColor: "#6b7280",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "10px",
+                                    fontSize: "16px",
+                                    fontWeight: "600",
+                                    cursor: "pointer",
+                                    transition: "all 0.2s ease",
+                                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#4b5563";
+                                    e.currentTarget.style.transform = "translateY(-1px)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#6b7280";
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                }}
+                            >
+                                👁️ {t('room.review')}
+                            </button>
+                        )}
+                    </div>
+                )}
             </motion.div>
         </div>
     );

@@ -8,14 +8,24 @@ class SocketManager {
     private readonly sockets = new Map<Namespace, Socket>()
 
     connect(ns: Namespace, token?: string | null, query?: Record<string, string>) {
-        if (this.sockets.get(ns)?.connected) {
-            return this.sockets.get(ns)!
+        const existingSocket = this.sockets.get(ns)
+        
+        if (existingSocket?.connected) {
+            return existingSocket
+        }
+
+        if (existingSocket) {
+            existingSocket.disconnect()
         }
 
         const socket = io(`${WEBSOCKET_URL}${ns}`, {
             auth: { token },
             query,
             transports: ['websocket'],
+            autoConnect: true,
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionAttempts: 3,
         })
 
         this.sockets.set(ns, socket)
@@ -34,6 +44,10 @@ class SocketManager {
 
     get(ns: Namespace) {
         return this.sockets.get(ns) ?? null
+    }
+
+    isConnected(ns: Namespace) {
+        return this.sockets.get(ns)?.connected ?? false
     }
 }
 

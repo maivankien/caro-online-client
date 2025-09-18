@@ -1,0 +1,159 @@
+.game-player-info {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto 15px auto;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.players-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.player-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: white;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.player-card.current-turn {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    transform: scale(1.01);
+}
+
+.player-card.current-user {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.player-card.waiting {
+    opacity: 0.6;
+    background: #f1f5f9;
+}
+
+.player-symbol {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.player-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #1f2937;
+}
+
+.user-indicator {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: normal;
+}
+
+.turn-indicator {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #3b82f6;
+    font-weight: 500;
+    text-align: center;
+}
+
+.vs-divider {
+    margin: 0 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6b7280;
+}
+
+.game-status {
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid #3b82f6;
+}
+
+.current-turn-info {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1f2937;
+}
+
+.first-player-info {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.compact-status {
+    text-align: center;
+    font-size: 12px;
+    color: #1f2937;
+    margin-top: 4px;
+}
+
+.game-player-info.compact {
+    max-width: 400px;
+    padding: 8px;
+    margin: 8px auto 10px auto;
+}
+
+.game-player-info.compact .player-card {
+    padding: 6px;
+}
+
+.game-player-info.compact .player-symbol {
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.game-player-info.compact .player-name {
+    font-size: 12px;
+}
+
+.game-player-info.compact .vs-divider {
+    font-size: 14px;
+    margin: 0 8px;
+}
+
+@media (max-width: 640px) {
+    .game-player-info {
+        padding: 10px;
+        margin: 8px auto 12px auto;
+    }
+
+    .players-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .vs-divider {
+        margin: 0;
+        transform: rotate(90deg);
+        font-size: 14px;
+    }
+
+    .player-card {
+        width: 100%;
+        max-width: 240px;
+        padding: 8px;
+    }
+
+    .player-symbol {
+        font-size: 20px;
+    }
+
+    .player-name {
+        font-size: 13px;
+    }
+}
