@@ -16,9 +16,11 @@ interface CaroBoardProps {
     winner?: Player | null
     isCurrentUserWinner?: boolean
     winnerName?: string
+    showWinModal?: boolean
     onMove?: (row: number, col: number, player: Player) => void
     onPlayAgain?: () => void
     onReview?: () => void
+    onCloseModal?: () => void
     readOnly?: boolean
 }
 
@@ -32,9 +34,11 @@ const CaroBoard: React.FC<CaroBoardProps> = ({
     winner = null,
     isCurrentUserWinner = false,
     winnerName,
+    showWinModal = false,
     onMove,
     onPlayAgain,
     onReview,
+    onCloseModal,
     readOnly = false
 }) => {
 
@@ -52,6 +56,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({
 
     const handleReview = () => {
         onReview?.()
+        onCloseModal?.()
     }
 
     const isWinningPosition = (row: number, col: number): boolean => {
@@ -65,12 +70,11 @@ const CaroBoard: React.FC<CaroBoardProps> = ({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            padding: "20px",
             position: "relative",
             borderRadius: "12px",
             marginTop: "16px"
         }}>
-            {winner !== null && (
+            {winner !== null && showWinModal && (
                 <WinModal
                     winner={winner}
                     isCurrentUserWinner={isCurrentUserWinner}

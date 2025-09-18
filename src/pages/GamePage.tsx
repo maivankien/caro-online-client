@@ -35,6 +35,8 @@ const GamePage = () => {
     const [winningPositions, setWinningPositions] = useState<[number, number][]>([])
     const [isCurrentUserWinner, setIsCurrentUserWinner] = useState<boolean>(false)
     const [winnerName, setWinnerName] = useState<string>('')
+    const [showWinModal, setShowWinModal] = useState<boolean>(false)
+    const [showPlayAgainButton, setShowPlayAgainButton] = useState<boolean>(false)
 
     const { connected, connecting, emit, on } = useGameSocket()
 
@@ -82,6 +84,12 @@ const GamePage = () => {
         emit(EVENT_SOCKET_CONSTANTS.MAKE_MOVE, moveData)
     }
 
+    const handlePlayAgain = () => {
+        setShowWinModal(false)
+        setShowPlayAgainButton(false)
+        console.log('handlePlayAgain')
+    }
+
     useEffect(() => {
         if (connected && roomId) {
             emit(EVENT_SOCKET_CONSTANTS.PLAYER_READY)
@@ -94,14 +102,15 @@ const GamePage = () => {
         }
 
         const unsubscribeMove = on(EVENT_SOCKET_CONSTANTS.GAME_MOVE_MADE, (movePayload: IGameMovePayload) => {
-            setCurrentBoard(movePayload.gameState.board)
-            setCurrentPlayer(movePayload.gameState.currentPlayer)
-            setIsGameActive(movePayload.gameState.isGameActive)
+            const { gameState } = movePayload
+            setCurrentBoard(gameState.board)
+            setCurrentPlayer(gameState.currentPlayer)
+            setIsGameActive(gameState.isGameActive)
 
             if (gameData && user) {
                 const updatedGameData: IGameStartedData = {
                     players: gameData.players,
-                    gameState: movePayload.gameState,
+                    gameState: gameState,
                     message: gameData.message
                 }
 
@@ -124,6 +133,8 @@ const GamePage = () => {
             setIsGameActive(gameState.isGameActive)
 
             setWinner(winner)
+            setShowWinModal(true)
+            setShowPlayAgainButton(true)
 
             const winPositions: [number, number][] = winningLine.map(pos => [pos.row, pos.col])
             setWinningPositions(winPositions)
@@ -196,6 +207,17 @@ const GamePage = () => {
                     />
                 )}
 
+                {showPlayAgainButton && (
+                    <div className="play-again-container">
+                        <button 
+                            className="play-again-btn"
+                            onClick={handlePlayAgain}
+                        >
+                            🔄 Chơi lại
+                        </button>
+                    </div>
+                )}
+
                 {isGameStarting && countdown !== null && (
                     <div className="game-countdown-overlay">
                         <div className="countdown-container">
@@ -218,7 +240,11 @@ const GamePage = () => {
                         winner={winner}
                         isCurrentUserWinner={isCurrentUserWinner}
                         winnerName={winnerName}
+                        showWinModal={showWinModal}
                         onMove={handlePlayerMove}
+                        onPlayAgain={handlePlayAgain}
+                        onCloseModal={() => setShowWinModal(false)}
+                        onReview={() => setShowWinModal(false)}
                         readOnly={false}
                     />
                 )}
