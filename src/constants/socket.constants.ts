@@ -1,6 +1,8 @@
 export const EVENT_SOCKET_CONSTANTS = {
     ROOM_JOINED: 'room.joined',
     PLAYER_READY: 'player.ready',
+    GET_GAME_STATE: 'get.game.state',
+    GAME_STATE_SYNC: 'game.state.sync',
     GAME_START_COUNTDOWN: 'game.start.countdown',
     GAME_STARTED: 'game.started',
     GAME_MOVE_MADE: 'game.move.made',

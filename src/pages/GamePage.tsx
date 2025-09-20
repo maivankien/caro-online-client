@@ -15,8 +15,11 @@ import { type Player } from "@/utils/caroGameLogic"
 import { toastManager } from "@/contexts/ToastContext"
 import {
     useGameSocket, type IGameStartedData, type IGamePlayerInfo,
-    type IMakeMoveDto, type IGameMovePayload, type IGameFinishedPayload
+    type IMakeMoveDto, type IGameMovePayload, type IGameFinishedPayload,
+    type IGameCountdownPayload, type IGameStateSyncPayload,
+    type IGameState, type IWinningPosition, type IGamePlayers
 } from "@/features/game"
+import { ROOM_STATUS_CONSTANTS } from "@/constants/room.constants"
 
 
 const GamePage = () => {
@@ -91,10 +94,59 @@ const GamePage = () => {
     }
 
     useEffect(() => {
-        if (connected && roomId) {
+        if (!connected) {
+            return
+        }
+
+        const status = room?.data?.status
+        if (status === ROOM_STATUS_CONSTANTS.WAITING_READY) {
             emit(EVENT_SOCKET_CONSTANTS.PLAYER_READY)
         }
-    }, [connected, roomId, emit])
+
+        if (status === ROOM_STATUS_CONSTANTS.PLAYING) {
+            emit(EVENT_SOCKET_CONSTANTS.GET_GAME_STATE)
+        }
+    }, [connected, emit])
+
+    const setPlayerInfo = (data: IGameStartedData | IGameStateSyncPayload) => {
+        const { playerX: pX, playerO: pO } = createGamePlayerInfo(data, user)
+        setPlayerX(pX)
+        setPlayerO(pO)
+    }
+
+    const updateGameState = (gameState: IGameState) => {
+        setCurrentBoard(gameState.board)
+        setCurrentPlayer(gameState.currentPlayer)
+        setIsGameActive(gameState.isGameActive)
+    }
+
+    const handleGameFinished = (winner: Player | null, players: IGamePlayers, winningLine?: IWinningPosition[]) => {
+        setWinner(winner)
+        setShowWinModal(true)
+        setShowPlayAgainButton(true)
+
+        if (winningLine && winningLine.length > 0) {
+            const winPositions: [number, number][] = winningLine.map(pos => [pos.row, pos.col])
+            setWinningPositions(winPositions)
+        }
+
+        if (winner && user) {
+            const { playerXId, playerOId } = players
+            const winnerPlayerId = winner === 'X' ? playerXId : playerOId
+            const isWinner = winnerPlayerId === user.id
+            setIsCurrentUserWinner(isWinner)
+
+            if (isWinner) {
+                setWinnerName('Bạn')
+            } else {
+                const winnerPlayerInfo = winner === 'X' ? playerX : playerO
+                setWinnerName(winnerPlayerInfo?.playerName || `Người chơi ${winner}`)
+            }
+        } else {
+            setWinnerName('')
+            setIsCurrentUserWinner(false)
+        }
+    }
 
     useEffect(() => {
         if (!connected) {
@@ -103,24 +155,19 @@ const GamePage = () => {
 
         const unsubscribeMove = on(EVENT_SOCKET_CONSTANTS.GAME_MOVE_MADE, (movePayload: IGameMovePayload) => {
             const { gameState } = movePayload
-            setCurrentBoard(gameState.board)
-            setCurrentPlayer(gameState.currentPlayer)
-            setIsGameActive(gameState.isGameActive)
+            updateGameState(gameState)
 
             if (gameData && user) {
                 const updatedGameData: IGameStartedData = {
                     players: gameData.players,
                     gameState: gameState,
-                    message: gameData.message
                 }
 
-                const { playerX: pX, playerO: pO } = createGamePlayerInfo(updatedGameData, user)
-                setPlayerX(pX)
-                setPlayerO(pO)
+                setPlayerInfo(updatedGameData)
             }
         })
 
-        const unsubscribeGameStartCountdown = on(EVENT_SOCKET_CONSTANTS.GAME_START_COUNTDOWN, (data) => {
+        const unsubscribeGameStartCountdown = on(EVENT_SOCKET_CONSTANTS.GAME_START_COUNTDOWN, (data: IGameCountdownPayload) => {
             setIsGameStarting(true)
             setCountdown(data.countdown)
         })
@@ -128,33 +175,10 @@ const GamePage = () => {
         const unsubscribeGameFinished = on(EVENT_SOCKET_CONSTANTS.GAME_FINISHED, (gameResult: IGameFinishedPayload) => {
             const { gameState, winner, winningLine } = gameResult
 
-            setCurrentBoard(gameState.board)
-            setCurrentPlayer(gameState.currentPlayer)
-            setIsGameActive(gameState.isGameActive)
+            updateGameState(gameState)
 
-            setWinner(winner)
-            setShowWinModal(true)
-            setShowPlayAgainButton(true)
-
-            const winPositions: [number, number][] = winningLine.map(pos => [pos.row, pos.col])
-            setWinningPositions(winPositions)
-
-            if (winner && user && gameData?.players) {
-                const { playerXId, playerOId } = gameData.players
-                const winnerPlayerId = winner === 'X' ? playerXId : playerOId
-
-                const isWinner = winnerPlayerId === user.id
-                setIsCurrentUserWinner(isWinner)
-
-                if (isWinner) {
-                    setWinnerName('Bạn')
-                } else {
-                    const winnerPlayerInfo = winner === 'X' ? playerX : playerO
-                    setWinnerName(winnerPlayerInfo?.playerName || `Người chơi ${winner}`)
-                }
-            } else {
-                setWinnerName('')
-                setIsCurrentUserWinner(false)
+            if (gameData?.players) {
+                handleGameFinished(winner, gameData.players, winningLine)
             }
         })
 
@@ -163,20 +187,33 @@ const GamePage = () => {
             setGameData(data)
             setIsGameStarting(false)
 
-            setCurrentBoard(data.gameState.board)
-            setCurrentPlayer(data.gameState.currentPlayer)
-            setIsGameActive(data.gameState.isGameActive)
+            updateGameState(data.gameState)
+            setPlayerInfo(data)
+        })
 
-            const { playerX: pX, playerO: pO } = createGamePlayerInfo(data, user)
-            setPlayerX(pX)
-            setPlayerO(pO)
+        const unsubscribeGameStateSync = on(EVENT_SOCKET_CONSTANTS.GAME_STATE_SYNC, (data: IGameStateSyncPayload) => {
+            const { gameState, players, winner, winningLine } = data
+
+            const syncGameData: IGameStartedData = {
+                gameState,
+                players,
+            }
+
+            setGameData(syncGameData)
+            updateGameState(gameState)
+            setPlayerInfo(syncGameData)
+
+            if (!gameState.isGameActive && winner !== undefined) {
+                handleGameFinished(winner, players, winningLine)
+            }
         })
 
         return () => {
             unsubscribeMove()
-            unsubscribeGameFinished()
-            unsubscribeGameStartCountdown()
             unsubscribeGameStart()
+            unsubscribeGameFinished()
+            unsubscribeGameStateSync()
+            unsubscribeGameStartCountdown()
         }
     }, [connected, on, gameData, user])
 
@@ -209,7 +246,7 @@ const GamePage = () => {
 
                 {showPlayAgainButton && (
                     <div className="play-again-container">
-                        <button 
+                        <button
                             className="play-again-btn"
                             onClick={handlePlayAgain}
                         >

@@ -1,3 +1,5 @@
+import { type RoomStatus } from "@/constants/room.constants"
+
 export interface IRoom {
     id: string
     name: string
@@ -11,7 +13,7 @@ export interface IRoom {
     maxPlayers: number
     boardSize: number
     winCondition: number
-    status: 'waiting' | 'playing' | 'finished'
+    status: RoomStatus
     createdAt: string
 }
 

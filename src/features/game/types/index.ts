@@ -16,7 +16,13 @@ export interface IGamePlayers {
 export interface IGameStartedData {
     gameState: IGameState
     players: IGamePlayers
-    message: string
+}
+
+export interface IGameStateSyncPayload {
+    gameState: IGameState
+    players: IGamePlayers
+    winner?: Player | null
+    winningLine?: IWinningPosition[]
 }
 
 export interface IGamePlayerInfo {
@@ -42,6 +48,10 @@ export interface IGameMove {
 export interface IGameMovePayload {
     move: IGameMove
     gameState: IGameState
+}
+
+export interface IGameCountdownPayload {
+    countdown: number
 }
 
 export interface IWinningPosition {
