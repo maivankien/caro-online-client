@@ -75,6 +75,7 @@ function readFileCached(filePath) {
 function findUsedKeys(srcDir) {
     const usedKeys = new Set()
     const usedKeysWithFiles = new Map()
+    const dynamicKeyPatterns = new Map() // Track dynamic key patterns
 
     function scanDirectory(dir) {
         const files = fs.readdirSync(dir, { withFileTypes: true })
@@ -98,6 +99,7 @@ function findUsedKeys(srcDir) {
     function scanFile(filePath) {
         const content = readFileCached(filePath)
 
+        // 1. Static string literals: t('key') or t("key")
         const stringLiteralMatches = content.match(/t\(['"]([^'"]+)['"]\)/g)
         if (stringLiteralMatches) {
             stringLiteralMatches.forEach(match => {
@@ -112,6 +114,7 @@ function findUsedKeys(srcDir) {
             })
         }
 
+        // 2. Interpolation: t('key', { param: value })
         const interpolationMatches = content.match(/t\(['"]([^'"]+)['"],\s*\{[^}]*\}\)/g)
         if (interpolationMatches) {
             interpolationMatches.forEach(match => {
@@ -125,10 +128,45 @@ function findUsedKeys(srcDir) {
                 }
             })
         }
+
+        // 3. Template literals: t(`key.${variable}`)
+        const templateLiteralMatches = content.match(/t\(`([^`]+)`\)/g)
+        if (templateLiteralMatches) {
+            templateLiteralMatches.forEach(match => {
+                const template = match.match(/t\(`([^`]+)`\)/)[1]
+                const dynamicPattern = extractDynamicPattern(template)
+                
+                if (dynamicPattern) {
+                    if (!dynamicKeyPatterns.has(dynamicPattern.pattern)) {
+                        dynamicKeyPatterns.set(dynamicPattern.pattern, {
+                            files: [],
+                            examples: new Set()
+                        })
+                    }
+                    dynamicKeyPatterns.get(dynamicPattern.pattern).files.push(filePath)
+                    dynamicKeyPatterns.get(dynamicPattern.pattern).examples.add(template)
+                }
+            })
+        }
+    }
+
+    // Extract dynamic pattern from template literal
+    function extractDynamicPattern(template) {
+        // Convert t(`roomList.status.${room.status}`) to pattern "roomList.status.*"
+        const pattern = template.replace(/\$\{[^}]+\}/g, '*')
+        
+        // Only process if it looks like a valid key pattern
+        if (pattern.includes('.') && !pattern.includes('API_') && !pattern.includes('http')) {
+            return {
+                pattern: pattern,
+                original: template
+            }
+        }
+        return null
     }
 
     scanDirectory(srcDir)
-    return { usedKeys, usedKeysWithFiles }
+    return { usedKeys, usedKeysWithFiles, dynamicKeyPatterns }
 }
 
 function loadTranslations(localesDir) {
@@ -149,6 +187,41 @@ function loadTranslations(localesDir) {
     return translations
 }
 
+function analyzeDynamicPatterns(dynamicKeyPatterns, allEnKeys, allViKeys) {
+    const analysis = {
+        validPatterns: [],
+        missingPatterns: [],
+        unusedPatterns: []
+    }
+
+    for (const [pattern, data] of dynamicKeyPatterns) {
+        // Convert pattern like "roomList.status.*" to regex
+        const patternRegex = new RegExp('^' + pattern.replace(/\*/g, '[^.]+') + '$')
+        
+        // Find matching keys in translations
+        const matchingEnKeys = allEnKeys.filter(key => patternRegex.test(key))
+        const matchingViKeys = allViKeys.filter(key => patternRegex.test(key))
+        
+        if (matchingEnKeys.length > 0 || matchingViKeys.length > 0) {
+            analysis.validPatterns.push({
+                pattern,
+                examples: Array.from(data.examples),
+                files: data.files,
+                matchingEnKeys,
+                matchingViKeys
+            })
+        } else {
+            analysis.missingPatterns.push({
+                pattern,
+                examples: Array.from(data.examples),
+                files: data.files
+            })
+        }
+    }
+
+    return analysis
+}
+
 function checkI18nUsage() {
     const projectRoot = path.join(__dirname, '..')
     const srcDir = path.join(projectRoot, 'src')
@@ -162,11 +235,21 @@ function checkI18nUsage() {
     const allViKeys = getAllTranslationKeys(translations.vi)
 
     // Find used keys
-    const { usedKeys, usedKeysWithFiles } = findUsedKeys(srcDir)
+    const { usedKeys, usedKeysWithFiles, dynamicKeyPatterns } = findUsedKeys(srcDir)
+
+    // Check dynamic patterns against translation keys
+    const dynamicPatternAnalysis = analyzeDynamicPatterns(dynamicKeyPatterns, allEnKeys, allViKeys)
+    
+    // Get all keys that are covered by dynamic patterns
+    const dynamicCoveredKeys = new Set()
+    dynamicPatternAnalysis.validPatterns.forEach(pattern => {
+        pattern.matchingEnKeys.forEach(key => dynamicCoveredKeys.add(key))
+        pattern.matchingViKeys.forEach(key => dynamicCoveredKeys.add(key))
+    })
 
     // Calculate statistics
-    const unusedEnKeys = allEnKeys.filter(key => !usedKeys.has(key))
-    const unusedViKeys = allViKeys.filter(key => !usedKeys.has(key))
+    const unusedEnKeys = allEnKeys.filter(key => !usedKeys.has(key) && !dynamicCoveredKeys.has(key))
+    const unusedViKeys = allViKeys.filter(key => !usedKeys.has(key) && !dynamicCoveredKeys.has(key))
     const missingEnKeys = Array.from(usedKeys).filter(key => !allEnKeys.includes(key))
     const missingViKeys = Array.from(usedKeys).filter(key => !allViKeys.includes(key))
     const enOnlyKeys = allEnKeys.filter(key => !allViKeys.includes(key))
@@ -177,7 +260,8 @@ function checkI18nUsage() {
     console.log('�� Statistics:')
     console.log(`   Total EN keys: ${allEnKeys.length}`)
     console.log(`   Total VI keys: ${allViKeys.length}`)
-    console.log(`   Used keys: ${usedKeys.size}`)
+    console.log(`   Used static keys: ${usedKeys.size}`)
+    console.log(`   Dynamic patterns: ${dynamicKeyPatterns.size}`)
     console.log(`   Unused EN keys: ${unusedEnKeys.length}`)
     console.log(`   Unused VI keys: ${unusedViKeys.length}`)
     console.log(`   Missing EN keys: ${missingEnKeys.length}`)
@@ -238,7 +322,36 @@ function checkI18nUsage() {
         console.log()
     }
 
-    const totalIssues = unusedEnKeys.length + unusedViKeys.length + missingEnKeys.length + missingViKeys.length
+    // Show dynamic patterns analysis
+    if (dynamicPatternAnalysis.validPatterns.length > 0) {
+        console.log('✅ Valid dynamic patterns:')
+        dynamicPatternAnalysis.validPatterns.forEach(pattern => {
+            console.log(`   - ${pattern.pattern}`)
+            console.log(`     Examples: ${pattern.examples.join(', ')}`)
+            console.log(`     Matching EN keys: ${pattern.matchingEnKeys.length > 0 ? pattern.matchingEnKeys.join(', ') : 'None'}`)
+            console.log(`     Matching VI keys: ${pattern.matchingViKeys.length > 0 ? pattern.matchingViKeys.join(', ') : 'None'}`)
+            pattern.files.forEach(file => {
+                const relativePath = path.relative(projectRoot, file)
+                console.log(`     📁 ${relativePath}`)
+            })
+            console.log()
+        })
+    }
+
+    if (dynamicPatternAnalysis.missingPatterns.length > 0) {
+        console.log('⚠️  Missing dynamic patterns:')
+        dynamicPatternAnalysis.missingPatterns.forEach(pattern => {
+            console.log(`   - ${pattern.pattern}`)
+            console.log(`     Examples: ${pattern.examples.join(', ')}`)
+            pattern.files.forEach(file => {
+                const relativePath = path.relative(projectRoot, file)
+                console.log(`     📁 ${relativePath}`)
+            })
+            console.log()
+        })
+    }
+
+    const totalIssues = unusedEnKeys.length + unusedViKeys.length + missingEnKeys.length + missingViKeys.length + dynamicPatternAnalysis.missingPatterns.length
     if (totalIssues === 0) {
         console.log('✅ All translation keys are properly configured!')
     } else {
