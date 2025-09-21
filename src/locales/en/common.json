@@ -1,133 +1,53 @@
 {
-    "welcome": "Welcome to Caro Online",
     "room": {
         "title": "Caro Room",
-        "newRoom": "New Room",
-        "joinRoom": "Join Room",
-        "gameRoom": "Room Room",
         "waiting": "Waiting for opponent...",
-        "yourTurn": "Your turn",
-        "opponentTurn": "Opponent's turn",
-        "winner": "Winner: {{player}}",
-        "draw": "Draw!",
-        "gameOver": "Room Over",
         "gameEnded": "Room ended",
-        "turnOf": "Turn of: {{player}}",
-        "playerWon": "Player {{player}} won!",
-        "congratulations": "Congratulations!",
         "playAgain": "Play Again",
         "review": "Review",
-        "loading": "Loading...",
-        "creating": "Creating...",
-        "creatingGuestUser": "Creating guest user..."
+        "loading": "Loading..."
     },
     "game": {
-        "title": "Game Room",
-        "status": "Status:",
-        "connected": "Connected",
-        "disconnected": "Disconnected",
-        "leaveGame": "Leave Game"
-    },
-    "player": {
-        "player1": "Player 1",
-        "player2": "Player 2",
-        "you": "You",
-        "opponent": "Opponent"
+        "title": "Game Room"
     },
     "buttons": {
-        "start": "Start",
-        "restart": "Restart",
-        "exit": "Exit",
         "cancel": "Cancel",
-        "confirm": "Confirm",
         "back": "Back",
-        "next": "Next",
         "startPlaying": "Start Playing",
-        "logout": "Logout",
-        "play": "Start Playing",
-        "findRoom": "Find Room",
-        "createRoom": "Create New Room"
-    },
-    "menu": {
-        "home": "Home",
-        "play": "Play",
-        "settings": "Settings",
-        "about": "About",
-        "language": "Language"
+        "logout": "Logout"
     },
     "settings": {
-        "language": "Language",
-        "sound": "Sound",
-        "music": "Music",
-        "notifications": "Notifications"
+        "language": "Language"
     },
     "homepage": {
         "title": "Caro Online",
-        "placeholder": "Enter your name...",
-        "welcomeUser": "Welcome, {{name}}!"
+        "placeholder": "Enter your name..."
     },
     "gamepage": {
-        "welcomeUser": "Welcome, {{name}}!",
-        "gameActions": "Room Actions"
     },
     "gamePage": {
-        "welcomeUser": "Welcome, {{name}}!",
-        "createRoom": "Create Room",
-        "roomName": "Room Name",
-        "password": "Password",
-        "privateRoom": "Private Room",
-        "boardSize": "Board Size",
-        "winCondition": "Win Condition",
-        "winConditionTooLarge": "Win condition cannot be larger than board size"
+        "createRoom": "Create Room"
     },
     "messages": {
-        "cellOccupied": "This cell is already occupied!",
-        "gameAlreadyEnded": "Room has already ended, cannot continue playing!"
     },
     "api": {
-        "validation": {
-            "nameRequired": "Please enter a username"
-        },
-        "success": {
-            "guestUserCreated": "Guest user created successfully"
-        },
-        "errors": {
-            "guestUserCreationFailed": "Unable to create guest user",
-            "guestUserCreationError": "An error occurred while creating guest user"
-        }
     },
     "roomList": {
         "title": "Room List",
-        "totalRooms": "{{total}} rooms",
         "refresh": "🔄 Refresh",
         "autoRefresh": "Auto-refresh",
         "lastUpdated": "Last updated",
         "createdBy": "Created by:",
         "boardSize": "Board:",
         "winCondition": "Win:",
-        "winConditionCount": "{{count}} in a row",
-        "boardSizeFormat": "{{size}}x{{size}}",
         "joinBtn": "Join",
+        "joining": "Joining...",
         "fullBtn": "Full",
-        "watchBtn": "Watch",
         "retry": "Retry",
-        "noRooms": "No rooms available",
-        "refreshList": "Refresh",
-        "loading": "Loading room list...",
-        "pagination": {
-            "previous": "« Previous",
-            "next": "Next »",
-            "pageInfo": "Page {{current}} / {{total}}"
-        },
-        "status": {
-            "waiting": "Waiting",
-            "playing": "Playing",
-            "finished": "Finished"
-        }
+        "noRooms": "No rooms available"
     },
     "createRoomForm": {
         "title": "Create New Room",
-        "roomName": "Room Name",
         "roomNameRequired": "Room Name *",
         "roomNamePlaceholder": "Enter room name...",
         "hasPassword": "Password protected room",
@@ -136,7 +56,6 @@
         "boardSize": "Board Size",
         "winCondition": "Win Condition",
         "boardSizeOptions": {
-            "13x13": "13x13",
             "15x15": "15x15",
             "19x19": "19x19"
         },
@@ -146,17 +65,11 @@
             "5": "5 in a row"
         },
         "createBtn": "Create Room",
-        "creating": "Creating...",
-        "successMessage": "Room \"{{roomName}}\" created successfully!",
-        "roomId": "ID: {{id}}"
+        "creating": "Creating..."
     },
     "toast": {
-        "roomCreated": "Room created successfully!",
         "roomCreateError": "Error occurred while creating room",
-        "roomSelected": "Selected room: {{roomName}}",
-        "formError": "Please check the information",
         "networkError": "Network connection error",
-        "success": "Success!",
         "error": "An error occurred"
     }
 }
