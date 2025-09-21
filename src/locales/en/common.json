@@ -5,7 +5,14 @@
         "gameEnded": "Room ended",
         "playAgain": "Play Again",
         "review": "Review",
-        "loading": "Loading..."
+        "loading": "Loading...",
+        "draw": "Draw!",
+        "drawMessage": "Game ended in a draw",
+        "congratulations": "Congratulations!",
+        "youWon": "You won!",
+        "defeat": "Defeat!",
+        "playerWon": "{{player}} won",
+        "turnOf": "Turn of: {{player}}"
     },
     "game": {
         "title": "Game Room"
@@ -23,14 +30,22 @@
         "title": "Caro Online",
         "placeholder": "Enter your name..."
     },
-    "gamepage": {
-    },
     "gamePage": {
-        "createRoom": "Create Room"
-    },
-    "messages": {
-    },
-    "api": {
+        "createRoom": "Create Room",
+        "connecting": "Connecting to game...",
+        "gameEnded": "Game has ended!",
+        "notYourTurn": "It's not your turn!",
+        "you": "You",
+        "player": "Player",
+        "playAgain": "🔄 Play Again",
+        "gameStarting": "Game is about to start!",
+        "waitingForPlayer": "Waiting for player...",
+        "currentTurn": "Current turn: {{player}}",
+        "yourTurn": "Your turn",
+        "playerTurn": "{{player}}'s turn",
+        "firstPlayerInfo": "Player X goes first",
+        "turn": "Turn: ",
+        "welcomeUser": "Welcome, {{name}}!"
     },
     "roomList": {
         "title": "Room List",
@@ -40,11 +55,17 @@
         "createdBy": "Created by:",
         "boardSize": "Board:",
         "winCondition": "Win:",
+        "winConditionCount": "{{count}} in a row",
+        "boardSizeFormat": "{{size}}x{{size}}",
         "joinBtn": "Join",
         "joining": "Joining...",
-        "fullBtn": "Full",
         "retry": "Retry",
-        "noRooms": "No rooms available"
+        "noRooms": "No rooms available",
+        "status": {
+            "waiting": "Waiting",
+            "playing": "Playing",
+            "finished": "Finished"
+        }
     },
     "createRoomForm": {
         "title": "Create New Room",

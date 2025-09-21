@@ -9,8 +9,6 @@ export interface IRoom {
     }
     isPrivate: boolean
     hasPassword: boolean
-    currentPlayers: number
-    maxPlayers: number
     boardSize: number
     winCondition: number
     status: RoomStatus

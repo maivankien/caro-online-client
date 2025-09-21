@@ -111,6 +111,20 @@ function findUsedKeys(srcDir) {
                 }
             })
         }
+
+        const interpolationMatches = content.match(/t\(['"]([^'"]+)['"],\s*\{[^}]*\}\)/g)
+        if (interpolationMatches) {
+            interpolationMatches.forEach(match => {
+                const key = match.match(/t\(['"]([^'"]+)['"],\s*\{[^}]*\}\)/)[1]
+                if (!shouldIgnoreKey(key)) {
+                    usedKeys.add(key)
+                    if (!usedKeysWithFiles.has(key)) {
+                        usedKeysWithFiles.set(key, [])
+                    }
+                    usedKeysWithFiles.get(key).push(filePath)
+                }
+            })
+        }
     }
 
     scanDirectory(srcDir)

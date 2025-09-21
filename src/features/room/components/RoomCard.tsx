@@ -12,30 +12,24 @@ interface IRoomCardProps {
 }
 
 const getStatusColor = (status: string) => {
-    switch (status) {
-        case 'waiting':
-            return 'green'
-        case 'playing':
-            return 'blue'
-        case 'finished':
-            return 'red'
-        default:
-            return 'default'
+    const mapStatus = {
+        waiting: 'green',
+        playing: 'blue',
+        finished: 'red'
     }
+    return mapStatus[status as keyof typeof mapStatus] || 'default'
 }
 
 const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
     const { t } = useTranslation()
 
-    const isDisabled = room.status !== 'waiting' || room.currentPlayers >= room.maxPlayers || isJoining
+    const isDisabled = room.status !== 'waiting' || isJoining
 
     const getButtonText = () => {
         if (isJoining) {
             return t('roomList.joining')
         }
-        if (room.currentPlayers >= room.maxPlayers) {
-            return t('roomList.fullBtn')
-        }
+       
         return t('roomList.joinBtn')
     }
 

@@ -71,7 +71,7 @@ const GamePage = () => {
         }
 
         if (!isGameActive) {
-            toastManager.showToast('error', 'Trò chơi đã kết thúc!')
+            toastManager.showToast('error', t('gamePage.gameEnded'))
             return
         }
 
@@ -79,7 +79,7 @@ const GamePage = () => {
         const expectedPlayer = isPlayerX ? 'X' : 'O'
 
         if (currentPlayer !== expectedPlayer) {
-            toastManager.showToast('error', 'Không phải lượt của bạn!')
+            toastManager.showToast('error', t('gamePage.notYourTurn'))
             return
         }
 
@@ -109,7 +109,7 @@ const GamePage = () => {
     }, [connected, emit])
 
     const setPlayerInfo = (data: IGameStartedData | IGameStateSyncPayload) => {
-        const { playerX: pX, playerO: pO } = createGamePlayerInfo(data, user)
+        const { playerX: pX, playerO: pO } = createGamePlayerInfo(data, user, t)
         setPlayerX(pX)
         setPlayerO(pO)
     }
@@ -137,10 +137,10 @@ const GamePage = () => {
             setIsCurrentUserWinner(isWinner)
 
             if (isWinner) {
-                setWinnerName('Bạn')
+                setWinnerName(t('gamePage.you'))
             } else {
                 const winnerPlayerInfo = winner === 'X' ? playerX : playerO
-                setWinnerName(winnerPlayerInfo?.playerName || `Người chơi ${winner}`)
+                setWinnerName(winnerPlayerInfo?.playerName || `${t('gamePage.player')} ${winner}`)
             }
         } else {
             setWinnerName('')
@@ -223,7 +223,7 @@ const GamePage = () => {
                 <AppHeader title={t('game.title')} />
                 <div className="loading-container">
                     <div className="spinner"></div>
-                    <p>Đang kết nối game...</p>
+                    <p>{t('gamePage.connecting')}</p>
                 </div>
             </div>
         )
@@ -250,7 +250,7 @@ const GamePage = () => {
                             className="play-again-btn"
                             onClick={handlePlayAgain}
                         >
-                            🔄 Chơi lại
+                            {t('gamePage.playAgain')}
                         </button>
                     </div>
                 )}
@@ -258,7 +258,7 @@ const GamePage = () => {
                 {isGameStarting && countdown !== null && (
                     <div className="game-countdown-overlay">
                         <div className="countdown-container">
-                            <h2>Game sắp bắt đầu!</h2>
+                            <h2>{t('gamePage.gameStarting')}</h2>
                             <div className="countdown-number">
                                 {countdown}
                             </div>

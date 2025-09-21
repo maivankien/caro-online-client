@@ -1,6 +1,7 @@
 import React from "react"
 import { type IGamePlayerInfo } from "@/features/game"
 import { PLAYER_COLORS } from "@/utils/colors"
+import { useTranslation } from "@/hooks/useTranslation"
 
 interface IGamePlayerInfoProps {
     playerX: IGamePlayerInfo | null
@@ -19,6 +20,7 @@ const GamePlayerInfo: React.FC<IGamePlayerInfoProps> = ({
     showGameStatus = true,
     compact = false
 }) => {
+    const { t } = useTranslation()
 
 
     const renderPlayerCard = (player: IGamePlayerInfo | null, symbol: "X" | "O") => {
@@ -28,7 +30,7 @@ const GamePlayerInfo: React.FC<IGamePlayerInfoProps> = ({
                     <div className="player-symbol" style={{ color: PLAYER_COLORS[symbol] }}>
                         {symbol}
                     </div>
-                    <div className="player-name">Đang chờ người chơi...</div>
+                    <div className="player-name">{t('gamePage.waitingForPlayer')}</div>
                 </div>
             )
         }
@@ -42,11 +44,11 @@ const GamePlayerInfo: React.FC<IGamePlayerInfoProps> = ({
                 </div>
                 <div className="player-name">
                     {player.playerName}
-                    {player.isCurrentUser && <span className="user-indicator"> (Bạn)</span>}
+                    {player.isCurrentUser && <span className="user-indicator"> ({t('gamePage.you')})</span>}
                 </div>
                 {!compact && isCurrentTurn && (
                     <div className="turn-indicator">
-                        Lượt của {player.isCurrentUser ? 'bạn' : player.playerName}
+                        {player.isCurrentUser ? t('gamePage.yourTurn') : t('gamePage.playerTurn', { player: player.playerName })}
                     </div>
                 )}
             </div>
@@ -64,19 +66,19 @@ const GamePlayerInfo: React.FC<IGamePlayerInfoProps> = ({
             {showGameStatus && gameActive && !compact && (
                 <div className="game-status">
                     <div className="current-turn-info">
-                        Lượt hiện tại: <span style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer}</span>
-                        {(currentPlayer === "X" && playerX?.isCurrentUser) || (currentPlayer === "O" && playerO?.isCurrentUser) ? " (Bạn)" : ""}
+                        {t('gamePage.currentTurn', { player: currentPlayer })} <span style={{ color: PLAYER_COLORS[currentPlayer] }}>{currentPlayer}</span>
+                        {(currentPlayer === "X" && playerX?.isCurrentUser) || (currentPlayer === "O" && playerO?.isCurrentUser) ? ` (${t('gamePage.you')})` : ""}
                     </div>
                     <div className="first-player-info">
-                        Người chơi X đi trước
+                        {t('gamePage.firstPlayerInfo')}
                     </div>
                 </div>
             )}
             
             {compact && gameActive && (
                 <div className="compact-status">
-                    Lượt: <span style={{ color: PLAYER_COLORS[currentPlayer], fontWeight: 'bold' }}>{currentPlayer}</span>
-                    {(currentPlayer === "X" && playerX?.isCurrentUser) || (currentPlayer === "O" && playerO?.isCurrentUser) ? " (Bạn)" : ""}
+                    {t('gamePage.turn', { player: currentPlayer })} <span style={{ color: PLAYER_COLORS[currentPlayer], fontWeight: 'bold' }}>{currentPlayer}</span>
+                    {(currentPlayer === "X" && playerX?.isCurrentUser) || (currentPlayer === "O" && playerO?.isCurrentUser) ? ` (${t('gamePage.you')})` : ""}
                 </div>
             )}
         </div>

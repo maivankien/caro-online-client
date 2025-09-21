@@ -5,6 +5,7 @@ import { type IUser } from "@/features/auth"
 export function createGamePlayerInfo(
     gameData: IGameStartedData,
     currentUser: IUser | null,
+    t: (key: string, options?: any) => string,
     playerXName?: string,
     playerOName?: string
 ): {
@@ -20,7 +21,7 @@ export function createGamePlayerInfo(
     const playerX: IGamePlayerInfo | null = players.playerXId ? {
         playerId: players.playerXId,
         playerSymbol: "X",
-        playerName: playerXName || (isUserPlayerX ? currentUser?.name || "Bạn" : "Người chơi X"),
+        playerName: playerXName || (isUserPlayerX ? currentUser?.name || t('gamePage.you') : `${t('gamePage.player')} X`),
         isCurrentTurn: gameState.currentPlayer === "X",
         isCurrentUser: isUserPlayerX
     } : null
@@ -28,7 +29,7 @@ export function createGamePlayerInfo(
     const playerO: IGamePlayerInfo | null = players.playerOId ? {
         playerId: players.playerOId,
         playerSymbol: "O",
-        playerName: playerOName || (isUserPlayerO ? currentUser?.name || "Bạn" : "Người chơi O"),
+        playerName: playerOName || (isUserPlayerO ? currentUser?.name || t('gamePage.you') : `${t('gamePage.player')} O`),
         isCurrentTurn: gameState.currentPlayer === "O",
         isCurrentUser: isUserPlayerO
     } : null

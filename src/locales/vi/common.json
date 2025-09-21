@@ -5,7 +5,14 @@
         "gameEnded": "Room đã kết thúc",
         "playAgain": "Chơi lại",
         "review": "Xem lại",
-        "loading": "Đang tải..."
+        "loading": "Đang tải...",
+        "draw": "Hòa!",
+        "drawMessage": "Trò chơi kết thúc với kết quả hòa",
+        "congratulations": "Chúc mừng!",
+        "youWon": "Bạn đã chiến thắng!",
+        "defeat": "Thất bại!",
+        "playerWon": "{{player}} đã chiến thắng",
+        "turnOf": "Lượt của: {{player}}"
     },
     "game": {
         "title": "Phòng Game"
@@ -23,14 +30,22 @@
         "title": "Caro Online",
         "placeholder": "Nhập tên của bạn..."
     },
-    "gamepage": {
-    },
     "gamePage": {
-        "createRoom": "Tạo phòng"
-    },
-    "messages": {
-    },
-    "api": {
+        "createRoom": "Tạo phòng",
+        "connecting": "Đang kết nối game...",
+        "gameEnded": "Trò chơi đã kết thúc!",
+        "notYourTurn": "Không phải lượt của bạn!",
+        "you": "Bạn",
+        "player": "Người chơi",
+        "playAgain": "🔄 Chơi lại",
+        "gameStarting": "Game sắp bắt đầu!",
+        "waitingForPlayer": "Đang chờ người chơi...",
+        "currentTurn": "Lượt hiện tại: {{player}}",
+        "yourTurn": "Lượt của bạn",
+        "playerTurn": "Lượt của {{player}}",
+        "firstPlayerInfo": "Người chơi X đi trước",
+        "turn": "Lượt: ",
+        "welcomeUser": "Chào mừng, {{name}}!"
     },
     "roomList": {
         "title": "Danh sách phòng",
@@ -40,11 +55,17 @@
         "createdBy": "Người tạo:",
         "boardSize": "Bàn cờ:",
         "winCondition": "Thắng:",
+        "winConditionCount": "{{count}} quân",
+        "boardSizeFormat": "{{size}}x{{size}}",
         "joinBtn": "Tham gia",
         "joining": "Đang tham gia...",
-        "fullBtn": "Đầy",
         "retry": "Thử lại",
-        "noRooms": "Không có phòng nào"
+        "noRooms": "Không có phòng nào",
+        "status": {
+            "waiting": "Đang chờ",
+            "playing": "Đang chơi",
+            "finished": "Đã kết thúc"
+        }
     },
     "createRoomForm": {
         "title": "Tạo Phòng Mới",

@@ -24,8 +24,8 @@ const WinModal: React.FC<WinModalProps> = ({
         if (!winner) {
             return {
                 emoji: "🤝",
-                title: "Hòa!",
-                message: "Trò chơi kết thúc với kết quả hòa",
+                title: t('room.draw'),
+                message: t('room.drawMessage'),
                 titleColor: "#6b7280"
             }
         }
@@ -33,16 +33,16 @@ const WinModal: React.FC<WinModalProps> = ({
         if (isCurrentUserWinner) {
             return {
                 emoji: "🎉",
-                title: "Chúc mừng!",
-                message: "Bạn đã chiến thắng!",
+                title: t('room.congratulations'),
+                message: t('room.youWon'),
                 titleColor: "#10b981"
             }
         } else {
-            const displayName = winnerName || `Người chơi ${winner}`
+            const displayName = winnerName || `${t('gamePage.player')} ${winner}`
             return {
                 emoji: "😢",
-                title: "Thất bại!",
-                message: `${displayName} đã chiến thắng`,
+                title: t('room.defeat'),
+                message: t('room.playerWon', { player: displayName }),
                 titleColor: "#ef4444"
             }
         }
