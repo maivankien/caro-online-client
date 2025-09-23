@@ -71,9 +71,8 @@ const BoardCell: React.FC<BoardCellProps> = ({
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     style={{
-                        fontSize: `${cellSize * 0.6}px`,
+                        fontSize: `${cellSize * 0.55}px`,
                         fontWeight: "900",
-                        fontFamily: "monospace",
                         color: PLAYER_COLORS[value],
                         textShadow: isWinning ?
                             `0 0 8px ${PLAYER_COLORS[value]}, 0 0 16px ${PLAYER_COLORS[value]}` :
