@@ -2,6 +2,7 @@
     "room": {
         "title": "Caro Room",
         "waiting": "Waiting for opponent...",
+        "gameReady": "Game is ready!",
         "gameEnded": "Room ended",
         "playAgain": "Play Again",
         "review": "Review",
@@ -21,6 +22,7 @@
         "cancel": "Cancel",
         "back": "Back",
         "startPlaying": "Start Playing",
+        "joinNow": "Join Now",
         "logout": "Logout"
     },
     "settings": {

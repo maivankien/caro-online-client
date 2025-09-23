@@ -74,7 +74,7 @@
     word-break: break-word;
 }
 
-.waiting-section {
+.status-section {
     background: white;
     border-radius: 16px;
     padding: 48px 32px;
@@ -110,6 +110,43 @@
     margin: 0;
     color: #666;
     font-size: 1rem;
+}
+
+.game-ready-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.game-ready-message h3 {
+    margin: 0;
+    color: #28a745;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.game-ready-message p {
+    margin: 0 0 24px 0;
+    color: #666;
+    font-size: 1rem;
+}
+
+.join-now-btn {
+    margin-top: 16px;
+    font-size: 1.1rem;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.join-now-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
 
 .room-actions {
@@ -222,7 +259,7 @@
         grid-template-columns: 1fr;
     }
 
-    .waiting-section {
+    .status-section {
         padding: 32px 24px;
     }
 

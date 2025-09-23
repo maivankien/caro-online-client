@@ -7,6 +7,7 @@ import { roomApi } from '@/features/room/services/roomApi'
 import AppHeader from '@/components/AppHeader'
 import type { IRoom } from '@/features/room/types'
 import { EVENT_SOCKET_CONSTANTS } from '@/constants/socket.constants'
+import { ROOM_STATUS_CONSTANTS } from '@/constants/room.constants'
 
 const RoomLobbyPage = () => {
     const { roomId } = useParams<{ roomId: string }>()
@@ -31,7 +32,10 @@ const RoomLobbyPage = () => {
             try {
                 if (roomId) {
                     const roomResponse = await roomApi.getRoomDetail(roomId)
-                    setRoom(roomResponse.data)
+
+                    const { data } = roomResponse
+
+                    setRoom(data)
                 }
 
                 setIsLoading(false)
@@ -128,11 +132,20 @@ const RoomLobbyPage = () => {
                     </div>
                 </div>
 
-                <div className="waiting-section">
-                    <div className="waiting-message">
-                        <div className="spinner"></div>
-                        <h3>{t('room.waiting')}</h3>
-                    </div>
+                <div className="status-section">
+                    {room.status === ROOM_STATUS_CONSTANTS.WAITING ? (
+                        <div className="waiting-message">
+                            <div className="spinner"></div>
+                            <h3>{t('room.waiting')}</h3>
+                        </div>
+                    ) : (
+                        <div className="game-ready-message">
+                            <h3>{t('room.gameReady')}</h3>
+                            <button onClick={handleGameStart} className="btn btn-primary join-now-btn">
+                                {t('buttons.joinNow')}
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <div className="room-actions">

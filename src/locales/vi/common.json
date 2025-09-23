@@ -2,6 +2,7 @@
     "room": {
         "title": "Trò chơi Caro",
         "waiting": "Đang chờ đối thủ...",
+        "gameReady": "Game đã sẵn sàng!",
         "gameEnded": "Room đã kết thúc",
         "playAgain": "Chơi lại",
         "review": "Xem lại",
@@ -21,6 +22,7 @@
         "cancel": "Hủy",
         "back": "Quay lại",
         "startPlaying": "Bắt đầu chơi",
+        "joinNow": "Tham gia ngay",
         "logout": "Đăng xuất"
     },
     "settings": {
