@@ -22,26 +22,29 @@ export const ToastItem: React.FC<IToastItemProps> = ({ toast }) => {
     
 
     const getIcon = () => {
-        switch (toast.type) {
-            case 'success':
-                return '✅'
-            case 'error':
-                return '❌'
-            case 'warning':
-                return '⚠️'
-            case 'info':
-                return 'ℹ️'
-            default:
-                return 'ℹ️'
-        }
+        const map = {
+            success: '✅',
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️'
+        } as const
+
+        return map[toast.type]
     }
 
     return (
-        <button
+        <div
             className={`toast-item toast-${toast.type} ${isVisible ? 'toast-visible' : ''}`}
             onClick={handleClose}
-            type="button"
+            role="button"
+            tabIndex={0}
             aria-label={`${toast.type} notification: ${toast.message}`}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleClose()
+                }
+            }}
         >
             <div className="toast-icon">
                 {getIcon()}
@@ -60,6 +63,6 @@ export const ToastItem: React.FC<IToastItemProps> = ({ toast }) => {
             >
                 ×
             </button>
-        </button>
+        </div>
     )
 } 
