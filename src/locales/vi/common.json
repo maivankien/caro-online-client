@@ -47,7 +47,13 @@
         "playerTurn": "Lượt của {{player}}",
         "firstPlayerInfo": "Người chơi X đi trước",
         "turn": "Lượt: ",
-        "welcomeUser": "Chào mừng, {{name}}!"
+        "welcomeUser": "Chào mừng, {{name}}!",
+        "rematchRequest": "Yêu cầu chơi lại",
+        "wantsToRematch": "muốn chơi lại",
+        "accept": "Chấp nhận",
+        "decline": "Từ chối",
+        "rematchAccepted": "Đã chấp nhận yêu cầu chơi lại",
+        "rematchRejected": "Yêu cầu chơi lại bị từ chối"
     },
     "roomList": {
         "title": "Danh sách phòng",

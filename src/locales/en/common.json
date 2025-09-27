@@ -47,7 +47,13 @@
         "playerTurn": "{{player}}'s turn",
         "firstPlayerInfo": "Player X goes first",
         "turn": "Turn: ",
-        "welcomeUser": "Welcome, {{name}}!"
+        "welcomeUser": "Welcome, {{name}}!",
+        "rematchRequest": "Rematch Request",
+        "wantsToRematch": "wants to rematch",
+        "accept": "Accept",
+        "decline": "Decline",
+        "rematchAccepted": "Rematch request accepted",
+        "rematchRejected": "Rematch request rejected"
     },
     "roomList": {
         "title": "Room List",

@@ -65,3 +65,8 @@ export interface IGameFinishedPayload {
     gameState: IGameState
     message: string
 }
+
+export interface IRematchRequestPayload {
+    userId: string
+    name: string
+}

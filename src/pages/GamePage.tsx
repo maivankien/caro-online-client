@@ -17,7 +17,8 @@ import {
     useGameSocket, type IGameStartedData, type IGamePlayerInfo,
     type IMakeMoveDto, type IGameMovePayload, type IGameFinishedPayload,
     type IGameCountdownPayload, type IGameStateSyncPayload,
-    type IGameState, type IWinningPosition, type IGamePlayers
+    type IGameState, type IWinningPosition, type IGamePlayers,
+    type IRematchRequestPayload
 } from "@/features/game"
 import { ROOM_STATUS_CONSTANTS } from "@/constants/room.constants"
 
@@ -40,6 +41,8 @@ const GamePage = () => {
     const [winnerName, setWinnerName] = useState<string>('')
     const [showWinModal, setShowWinModal] = useState<boolean>(false)
     const [showPlayAgainButton, setShowPlayAgainButton] = useState<boolean>(false)
+    const [showRematchRequest, setShowRematchRequest] = useState<boolean>(false)
+    const [rematchRequestFrom, setRematchRequestFrom] = useState<string>('')
 
     const { connected, connecting, emit, on } = useGameSocket()
 
@@ -90,7 +93,17 @@ const GamePage = () => {
     const handlePlayAgain = () => {
         setShowWinModal(false)
         setShowPlayAgainButton(false)
-        console.log('handlePlayAgain')
+        emit(EVENT_SOCKET_CONSTANTS.REQUEST_REMATCH)
+    }
+
+    const handleAcceptRematch = () => {
+        setShowRematchRequest(false)
+        emit(EVENT_SOCKET_CONSTANTS.ACCEPT_REMATCH)
+    }
+
+    const handleDeclineRematch = () => {
+        setShowRematchRequest(false)
+        emit(EVENT_SOCKET_CONSTANTS.DECLINE_REMATCH)
     }
 
     useEffect(() => {
@@ -187,8 +200,17 @@ const GamePage = () => {
             setGameData(data)
             setIsGameStarting(false)
 
-            updateGameState(data.gameState)
+            setWinner(null)
+            setWinnerName('')
+            setIsCurrentUserWinner(false)
+            setWinningPositions([])
+            setRematchRequestFrom('')
+            setShowRematchRequest(false)
+            setShowPlayAgainButton(false)
+            setShowWinModal(false)
+
             setPlayerInfo(data)
+            updateGameState(data.gameState)
         })
 
         const unsubscribeGameStateSync = on(EVENT_SOCKET_CONSTANTS.GAME_STATE_SYNC, (data: IGameStateSyncPayload) => {
@@ -208,12 +230,33 @@ const GamePage = () => {
             }
         })
 
+        const unsubscribeRematchRequest = on(EVENT_SOCKET_CONSTANTS.REQUEST_REMATCH, (data: IRematchRequestPayload) => {
+            if (data.userId === user?.id) {
+                return
+            }
+
+            setShowRematchRequest(true)
+            setRematchRequestFrom(data.name)
+        })
+
+        const unsubscribeRematchResponse = on(EVENT_SOCKET_CONSTANTS.ACCEPT_REMATCH, () => {
+            toastManager.showToast('success', t('gamePage.rematchAccepted'))
+        })
+
+        const unsubscribeRematchDecline = on(EVENT_SOCKET_CONSTANTS.DECLINE_REMATCH, () => {
+            setShowRematchRequest(false)
+            toastManager.showToast('info', t('gamePage.rematchRejected'))
+        })
+
         return () => {
             unsubscribeMove()
             unsubscribeGameStart()
             unsubscribeGameFinished()
             unsubscribeGameStateSync()
             unsubscribeGameStartCountdown()
+            unsubscribeRematchRequest()
+            unsubscribeRematchResponse()
+            unsubscribeRematchDecline()
         }
     }, [connected, on, gameData, user])
 
@@ -252,6 +295,29 @@ const GamePage = () => {
                         >
                             {t('gamePage.playAgain')}
                         </button>
+                    </div>
+                )}
+
+                {showRematchRequest && (
+                    <div className="rematch-request-overlay">
+                        <div className="rematch-request-container">
+                            <h3>{t('gamePage.rematchRequest')}</h3>
+                            <p>{rematchRequestFrom} {t('gamePage.wantsToRematch')}</p>
+                            <div className="rematch-buttons">
+                                <button
+                                    className="accept-rematch-btn"
+                                    onClick={handleAcceptRematch}
+                                >
+                                    {t('gamePage.accept')}
+                                </button>
+                                <button
+                                    className="decline-rematch-btn"
+                                    onClick={handleDeclineRematch}
+                                >
+                                    {t('gamePage.decline')}
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 )}
 
