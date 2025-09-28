@@ -8,6 +8,7 @@ const { Title, Text } = Typography
 interface IRoomCardProps {
     room: IRoom
     onJoinRoom: (roomId: string) => void
+    onJoinRoomWithPassword: (roomId: string) => void
     isJoining?: boolean
 }
 
@@ -20,7 +21,7 @@ const getStatusColor = (status: string) => {
     return mapStatus[status as keyof typeof mapStatus] || 'default'
 }
 
-const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
+const RoomCard = ({ room, onJoinRoom, onJoinRoomWithPassword, isJoining = false }: IRoomCardProps) => {
     const { t } = useTranslation()
 
     const isDisabled = room.status !== 'waiting' || isJoining
@@ -33,6 +34,14 @@ const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
         return t('roomList.joinBtn')
     }
 
+    const handleJoinClick = () => {
+        if (room.hasPassword) {
+            onJoinRoomWithPassword(room.id)
+        } else {
+            onJoinRoom(room.id)
+        }
+    }
+
     return (
         <Card
             className="room-card"
@@ -43,7 +52,7 @@ const RoomCard = ({ room, onJoinRoom, isJoining = false }: IRoomCardProps) => {
                     type="primary"
                     disabled={isDisabled}
                     loading={isJoining}
-                    onClick={() => onJoinRoom(room.id)}
+                    onClick={handleJoinClick}
                 >
                     {getButtonText()}
                 </Button>

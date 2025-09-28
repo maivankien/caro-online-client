@@ -73,7 +73,11 @@
             "waiting": "Đang chờ",
             "playing": "Đang chơi",
             "finished": "Đã kết thúc"
-        }
+        },
+        "passwordRequired": "Yêu cầu mật khẩu",
+        "passwordPrompt": "Phòng \"{{roomName}}\" yêu cầu mật khẩu để tham gia",
+        "password": "Mật khẩu",
+        "passwordPlaceholder": "Nhập mật khẩu phòng..."
     },
     "createRoomForm": {
         "title": "Tạo Phòng Mới",
@@ -100,5 +104,8 @@
         "roomCreateError": "Có lỗi xảy ra khi tạo phòng",
         "networkError": "Lỗi kết nối mạng",
         "error": "Có lỗi xảy ra"
+    },
+    "common": {
+        "cancel": "Hủy"
     }
 }

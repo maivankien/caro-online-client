@@ -73,7 +73,11 @@
             "waiting": "Waiting",
             "playing": "Playing",
             "finished": "Finished"
-        }
+        },
+        "passwordRequired": "Password Required",
+        "passwordPrompt": "Room \"{{roomName}}\" requires a password to join",
+        "password": "Password",
+        "passwordPlaceholder": "Enter room password..."
     },
     "createRoomForm": {
         "title": "Create New Room",
@@ -100,5 +104,8 @@
         "roomCreateError": "Error occurred while creating room",
         "networkError": "Network connection error",
         "error": "An error occurred"
+    },
+    "common": {
+        "cancel": "Cancel"
     }
 }

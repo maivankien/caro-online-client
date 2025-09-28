@@ -1,9 +1,11 @@
 import RoomCard from './RoomCard'
+import PasswordModal from './PasswordModal'
 import { useRooms } from '../hooks/useRooms'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Card, Button, Pagination, Row, Col, Typography } from 'antd'
+import type { IRoom } from '../types'
 
 const { Title, Text } = Typography
 
@@ -26,6 +28,8 @@ const RoomList = () => {
     const navigate = useNavigate()
 
     const [lastFetchTime, setLastFetchTime] = useState<Date>(new Date())
+    const [passwordModalVisible, setPasswordModalVisible] = useState(false)
+    const [selectedRoom, setSelectedRoom] = useState<IRoom | null>(null)
 
     useEffect(() => {
         setLastFetchTime(new Date())
@@ -34,6 +38,33 @@ const RoomList = () => {
     const handleJoinRoom = async (roomId: string) => {
         await joinRoom(roomId)
         navigate(`/game/${roomId}`)
+    }
+
+    const handleJoinRoomWithPassword = (roomId: string) => {
+        const room = rooms.find(r => r.id === roomId)
+        if (room) {
+            setSelectedRoom(room)
+            setPasswordModalVisible(true)
+        }
+    }
+
+    const handlePasswordSubmit = async (password: string) => {
+        if (selectedRoom) {
+            try {
+                await joinRoom(selectedRoom.id, password)
+                setPasswordModalVisible(false)
+                setSelectedRoom(null)
+                navigate(`/game/${selectedRoom.id}`)
+            } catch (error) {
+                // Error will be handled by the mutation error state
+                console.error('Failed to join room with password:', error)
+            }
+        }
+    }
+
+    const handlePasswordCancel = () => {
+        setPasswordModalVisible(false)
+        setSelectedRoom(null)
     }
 
     const handleRefresh = () => {
@@ -92,6 +123,7 @@ const RoomList = () => {
                             <RoomCard
                                 room={room}
                                 onJoinRoom={handleJoinRoom}
+                                onJoinRoomWithPassword={handleJoinRoomWithPassword}
                                 isJoining={isJoining}
                             />
                         </Col>
@@ -130,6 +162,14 @@ const RoomList = () => {
                     />
                 </div>
             )}
+
+            <PasswordModal
+                visible={passwordModalVisible}
+                roomName={selectedRoom?.name || ''}
+                onConfirm={handlePasswordSubmit}
+                onCancel={handlePasswordCancel}
+                loading={isJoining}
+            />
         </div>
     )
 }
