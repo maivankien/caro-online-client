@@ -239,11 +239,19 @@ const GamePage = () => {
             setRematchRequestFrom(data.name)
         })
 
-        const unsubscribeRematchResponse = on(EVENT_SOCKET_CONSTANTS.ACCEPT_REMATCH, () => {
+        const unsubscribeRematchResponse = on(EVENT_SOCKET_CONSTANTS.ACCEPT_REMATCH, (data: IRematchRequestPayload) => {
+            if (data.userId === user?.id) {
+                return
+            }
+
             toastManager.showToast('success', t('gamePage.rematchAccepted'))
         })
 
-        const unsubscribeRematchDecline = on(EVENT_SOCKET_CONSTANTS.DECLINE_REMATCH, () => {
+        const unsubscribeRematchDecline = on(EVENT_SOCKET_CONSTANTS.DECLINE_REMATCH, (data: IRematchRequestPayload) => {
+            if (data.userId === user?.id) {
+                return
+            }
+
             setShowRematchRequest(false)
             toastManager.showToast('info', t('gamePage.rematchRejected'))
         })
