@@ -7,6 +7,7 @@ interface BoardCellProps {
     value: Player | null;
     cellSize: number;
     isWinning: boolean;
+    isLastMove?: boolean;
     gameEnded: boolean;
     onClick: () => void;
 }
@@ -15,9 +16,19 @@ const BoardCell: React.FC<BoardCellProps> = ({
     value,
     cellSize,
     isWinning,
+    isLastMove = false,
     gameEnded,
     onClick
 }) => {
+    const getBoxShadow = () => {
+        if (isWinning) {
+            return "0 0 8px rgba(251, 191, 36, 0.4)"
+        }
+        if (isLastMove) {
+            return "0 0 4px rgba(16, 185, 129, 0.2)"
+        }
+        return "0 1px 3px rgba(0, 0, 0, 0.1)"
+    }
     return (
         <motion.button
             onClick={onClick}
@@ -43,22 +54,22 @@ const BoardCell: React.FC<BoardCellProps> = ({
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: gameEnded ? "not-allowed" : "pointer",
-                border: "1px solid #e5e7eb",
+                border: isLastMove ? "2px solid #34d399" : "1px solid #e5e7eb",
                 transition: "all 0.2s ease",
                 padding: 0,
                 outline: "none",
                 opacity: gameEnded && !isWinning ? 0.7 : 1,
-                boxShadow: isWinning ? "0 0 8px rgba(251, 191, 36, 0.4)" : "0 1px 3px rgba(0, 0, 0, 0.1)"
+                boxShadow: getBoxShadow()
             }}
             onMouseEnter={(e) => {
-                if (!gameEnded && !isWinning) {
+                if (!gameEnded && !isWinning && !isLastMove) {
                     e.currentTarget.style.backgroundColor = "#f0f9ff";
                     e.currentTarget.style.boxShadow = "0 0 0 2px #3b82f6";
                     e.currentTarget.style.borderColor = "#3b82f6";
                 }
             }}
             onMouseLeave={(e) => {
-                if (!gameEnded && !isWinning) {
+                if (!gameEnded && !isWinning && !isLastMove) {
                     e.currentTarget.style.backgroundColor = "#ffffff";
                     e.currentTarget.style.boxShadow = "0 1px 3px rgba(0, 0, 0, 0.1)";
                     e.currentTarget.style.borderColor = "#e5e7eb";

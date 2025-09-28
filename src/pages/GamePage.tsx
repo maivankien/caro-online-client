@@ -43,6 +43,7 @@ const GamePage = () => {
     const [showPlayAgainButton, setShowPlayAgainButton] = useState<boolean>(false)
     const [showRematchRequest, setShowRematchRequest] = useState<boolean>(false)
     const [rematchRequestFrom, setRematchRequestFrom] = useState<string>('')
+    const [lastMovePosition, setLastMovePosition] = useState<IMakeMoveDto | undefined>(undefined)
 
     const { connected, connecting, emit, on } = useGameSocket()
 
@@ -131,6 +132,7 @@ const GamePage = () => {
         setCurrentBoard(gameState.board)
         setCurrentPlayer(gameState.currentPlayer)
         setIsGameActive(gameState.isGameActive)
+        setLastMovePosition(gameState.lastMovePosition)
     }
 
     const handleGameFinished = (winner: Player | null, players: IGamePlayers, winningLine?: IWinningPosition[]) => {
@@ -352,6 +354,7 @@ const GamePage = () => {
                         isCurrentUserWinner={isCurrentUserWinner}
                         winnerName={winnerName}
                         showWinModal={showWinModal}
+                        lastMovePosition={lastMovePosition}
                         onMove={handlePlayerMove}
                         onPlayAgain={handlePlayAgain}
                         onCloseModal={() => setShowWinModal(false)}

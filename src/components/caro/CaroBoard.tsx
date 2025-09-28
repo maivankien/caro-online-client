@@ -17,6 +17,7 @@ interface CaroBoardProps {
     isCurrentUserWinner?: boolean
     winnerName?: string
     showWinModal?: boolean
+    lastMovePosition?: { row: number; col: number }
     onMove?: (row: number, col: number, player: Player) => void
     onPlayAgain?: () => void
     onReview?: () => void
@@ -35,6 +36,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({
     isCurrentUserWinner = false,
     winnerName,
     showWinModal = false,
+    lastMovePosition,
     onMove,
     onPlayAgain,
     onReview,
@@ -102,6 +104,7 @@ const CaroBoard: React.FC<CaroBoardProps> = ({
                             value={val}
                             cellSize={cellSize}
                             isWinning={isWinningPosition(r, c)}
+                            isLastMove={lastMovePosition?.row === r && lastMovePosition?.col === c}
                             gameEnded={gameEnded}
                             onClick={() => handleClick(r, c)}
                         />

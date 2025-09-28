@@ -5,6 +5,7 @@ export interface IGameState {
     currentPlayer: Player
     isGameActive: boolean
     moveCount: number
+    lastMovePosition?: IMakeMoveDto
     startTime: string
 }
 
