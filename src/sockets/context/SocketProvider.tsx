@@ -15,7 +15,11 @@ export const SocketProvider = ({ namespace, query, children }: Props) => {
     const { authToken } = useAppStore()
     const socket = useMemo(() => socketManager.connect(namespace, authToken, query), [namespace, authToken, query])
 
-    useEffect(() => () => socketManager.disconnect(namespace), [namespace])
+    useEffect(() => {
+        return () => {
+            socketManager.disconnect(namespace)
+        }
+    }, [namespace])
 
     return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
 }

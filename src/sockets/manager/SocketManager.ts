@@ -2,7 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import { WEBSOCKET_URL } from '@/config/api.config';
 
 
-export type Namespace = '/room' | '/game'
+export type Namespace = '/room' | '/game' | '/matchmaking'
 
 class SocketManager {
     private readonly sockets = new Map<Namespace, Socket>()

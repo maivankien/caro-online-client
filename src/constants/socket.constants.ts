@@ -11,4 +11,7 @@ export const EVENT_SOCKET_CONSTANTS = {
     REQUEST_REMATCH: 'request.rematch',
     ACCEPT_REMATCH: 'accept.rematch',
     DECLINE_REMATCH: 'decline.rematch',
+    MATCHMAKING: 'matchmaking',
+    MATCHMAKING_FOUND: 'matchmaking.found',
+    MATCHMAKING_CANCEL: 'matchmaking.cancel',
 } as const

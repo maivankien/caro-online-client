@@ -34,6 +34,7 @@
     },
     "gamePage": {
         "createRoom": "Tạo phòng",
+        "findMatch": "Ghép trận",
         "connecting": "Đang kết nối game...",
         "gameEnded": "Trò chơi đã kết thúc!",
         "notYourTurn": "Không phải lượt của bạn!",
@@ -105,7 +106,17 @@
         "networkError": "Lỗi kết nối mạng",
         "error": "Có lỗi xảy ra"
     },
+    "matchmaking": {
+        "title": "Tìm trận đấu",
+        "findMatch": "Tìm trận",
+        "searching": "Đang tìm đối thủ...",
+        "searchingSubtitle": "Vui lòng chờ trong giây lát",
+        "cancel": "Hủy tìm kiếm"
+    },
     "common": {
         "cancel": "Hủy"
+    },
+    "socket": {
+        "socketNotConnected": "Socket không kết nối"
     }
 }
