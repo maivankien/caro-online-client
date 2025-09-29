@@ -47,7 +47,7 @@ export default function MatchmakingModal({ isOpen, onClose }: IMatchmakingModalP
                     socket.disconnect()
                 }
 
-                navigate(`/game/${data.roomId}`)
+                window.location.href = `/game/${data.roomId}`
             }
 
             matchmakingSocket.on(EVENT_SOCKET_CONSTANTS.MATCHMAKING_FOUND, handleMatchmakingFound)

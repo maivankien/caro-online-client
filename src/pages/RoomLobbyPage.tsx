@@ -24,7 +24,7 @@ const RoomLobbyPage = () => {
     }, [navigate])
 
     const handleGameStart = useCallback(() => {
-        navigate(`/game/${roomId}`, { replace: false })
+        window.location.href = `/game/${roomId}`
     }, [navigate])
 
     useEffect(() => {

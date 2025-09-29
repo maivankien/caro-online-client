@@ -2,7 +2,6 @@ import RoomCard from './RoomCard'
 import PasswordModal from './PasswordModal'
 import { useRooms } from '../hooks/useRooms'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Card, Button, Pagination, Row, Col, Typography } from 'antd'
 import type { IRoom } from '../types'
@@ -25,8 +24,6 @@ const RoomList = () => {
         joinError
     } = useRooms()
 
-    const navigate = useNavigate()
-
     const [lastFetchTime, setLastFetchTime] = useState<Date>(new Date())
     const [passwordModalVisible, setPasswordModalVisible] = useState(false)
     const [selectedRoom, setSelectedRoom] = useState<IRoom | null>(null)
@@ -37,7 +34,7 @@ const RoomList = () => {
 
     const handleJoinRoom = async (roomId: string) => {
         await joinRoom(roomId)
-        navigate(`/game/${roomId}`)
+        window.location.href = `/game/${roomId}`
     }
 
     const handleJoinRoomWithPassword = (roomId: string) => {
@@ -54,7 +51,7 @@ const RoomList = () => {
                 await joinRoom(selectedRoom.id, password)
                 setPasswordModalVisible(false)
                 setSelectedRoom(null)
-                navigate(`/game/${selectedRoom.id}`)
+                window.location.href = `/game/${selectedRoom.id}`
             } catch (error) {
                 // Error will be handled by the mutation error state
                 console.error('Failed to join room with password:', error)

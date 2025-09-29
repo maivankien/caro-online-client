@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useRooms } from '../hooks/useRooms'
 import type { ICreateRoomRequest } from '../types'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -14,7 +13,6 @@ interface ICreateRoomModalProps {
 }
 
 export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
-    const navigate = useNavigate()
     const { createRoom, isCreating, createError } = useRooms()
     const { t } = useTranslation()
 
@@ -47,7 +45,7 @@ export const CreateRoomModal = ({ isOpen, onClose }: ICreateRoomModalProps) => {
             })
 
             if (result?.data?.id) {
-                navigate(`/room/${result.data.id}`)
+                window.location.href = `/room/${result.data.id}`
             }
 
         } catch (error) {
