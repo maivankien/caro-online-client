@@ -70,10 +70,17 @@ export default function MatchmakingModal({ isOpen, onClose }: IMatchmakingModalP
                 window.location.href = `/game/${data.roomId}`
             }
 
+            const handleMatchmakingTimeout = () => {
+                setIsSearching(false)
+                toastManager.showToast('error', t('matchmaking.timeoutMessage'))
+            }
+
             matchmakingSocket.on(EVENT_SOCKET_CONSTANTS.MATCHMAKING_FOUND, handleMatchmakingFound)
+            matchmakingSocket.on(EVENT_SOCKET_CONSTANTS.MATCHMAKING_TIMEOUT, handleMatchmakingTimeout)
 
             return () => {
                 matchmakingSocket.off(EVENT_SOCKET_CONSTANTS.MATCHMAKING_FOUND, handleMatchmakingFound)
+                matchmakingSocket.off(EVENT_SOCKET_CONSTANTS.MATCHMAKING_TIMEOUT, handleMatchmakingTimeout)
                 socketManager.disconnect('/matchmaking')
             }
         }

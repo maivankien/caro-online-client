@@ -112,7 +112,8 @@
         "searching": "Searching for opponent...",
         "searchingSubtitle": "Please wait a moment",
         "searchTime": "Search Time",
-        "cancel": "Cancel Search"
+        "cancel": "Cancel Search",
+        "timeoutMessage": "Matchmaking failed, please try again later"
     },
     "common": {
         "cancel": "Cancel"

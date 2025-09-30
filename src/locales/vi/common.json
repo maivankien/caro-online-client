@@ -112,7 +112,8 @@
         "searching": "Đang tìm đối thủ...",
         "searchingSubtitle": "Vui lòng chờ trong giây lát",
         "searchTime": "Thời gian tìm kiếm",
-        "cancel": "Hủy tìm kiếm"
+        "cancel": "Hủy tìm kiếm",
+        "timeoutMessage": "Tìm trận thất bại, vui lòng thử lại sau"
     },
     "common": {
         "cancel": "Hủy"

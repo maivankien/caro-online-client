@@ -14,4 +14,5 @@ export const EVENT_SOCKET_CONSTANTS = {
     MATCHMAKING: 'matchmaking',
     MATCHMAKING_FOUND: 'matchmaking.found',
     MATCHMAKING_CANCEL: 'matchmaking.cancel',
+    MATCHMAKING_TIMEOUT: 'matchmaking.timeout',
 } as const
