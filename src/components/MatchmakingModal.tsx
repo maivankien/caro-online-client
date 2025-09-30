@@ -33,6 +33,26 @@ export default function MatchmakingModal({ isOpen, onClose }: IMatchmakingModalP
 
     const [isSearching, setIsSearching] = useState(false)
     const [socket, setSocket] = useState<any>(null)
+    const [searchTime, setSearchTime] = useState(0)
+
+    useEffect(() => {
+        let interval: number | null = null
+
+        if (isSearching) {
+            setSearchTime(0)
+            interval = setInterval(() => {
+                setSearchTime(prev => prev + 1)
+            }, 1000)
+        } else {
+            setSearchTime(0)
+        }
+
+        return () => {
+            if (interval) {
+                clearInterval(interval)
+            }
+        }
+    }, [isSearching])
 
     useEffect(() => {
         if (isOpen && authToken) {
@@ -91,7 +111,14 @@ export default function MatchmakingModal({ isOpen, onClose }: IMatchmakingModalP
             socket.emit(EVENT_SOCKET_CONSTANTS.MATCHMAKING_CANCEL)
         }
         setIsSearching(false)
+        setSearchTime(0)
         onClose()
+    }
+
+    const formatTime = (seconds: number): string => {
+        const mins = Math.floor(seconds / 60)
+        const secs = seconds % 60
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
     }
 
     if (!isOpen) {
@@ -166,6 +193,10 @@ export default function MatchmakingModal({ isOpen, onClose }: IMatchmakingModalP
                         <div className="search-spinner"></div>
                         <p className="search-text">{t('matchmaking.searching')}</p>
                         <p className="search-subtitle">{t('matchmaking.searchingSubtitle')}</p>
+                        <div className="search-timer">
+                            <span className="timer-label">{t('matchmaking.searchTime')}:</span>
+                            <span className="timer-value">{formatTime(searchTime)}</span>
+                        </div>
                         <button
                             onClick={handleCancel}
                             className="btn btn-secondary cancel-search-btn"

@@ -111,6 +111,7 @@
         "findMatch": "Find Match",
         "searching": "Searching for opponent...",
         "searchingSubtitle": "Please wait a moment",
+        "searchTime": "Search Time",
         "cancel": "Cancel Search"
     },
     "common": {

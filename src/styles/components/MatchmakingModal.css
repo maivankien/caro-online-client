@@ -4,7 +4,7 @@
 
 .matchmaking-search {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
 }
 
 .search-spinner {
@@ -31,8 +31,29 @@
 
 .search-subtitle {
     color: #666;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 0.9rem;
+}
+
+.search-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;    
+    border-radius: 8px;
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.timer-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #007bff;
+    letter-spacing: 1px;
 }
 
 .cancel-search-btn {
