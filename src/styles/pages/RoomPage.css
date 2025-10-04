@@ -138,6 +138,30 @@
     box-shadow: 0 2px 4px rgba(82, 196, 26, 0.2);
 }
 
+.ai-game-btn {
+    padding: 12px 24px;
+    background-color: #722ed1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(114, 46, 209, 0.2);
+}
+
+.ai-game-btn:hover {
+    background-color: #9254de;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(114, 46, 209, 0.3);
+}
+
+.ai-game-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(114, 46, 209, 0.2);
+}
+
 /* Responsive design for RoomPage */
 @media (max-width: 768px) {
     .header-content {
@@ -149,6 +173,19 @@
     .header-right {
         align-self: stretch;
         justify-content: space-between;
+    }
+
+    .room-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .create-room-btn,
+    .matchmaking-btn,
+    .ai-game-btn {
+        width: 100%;
+        text-align: center;
     }
 }
 

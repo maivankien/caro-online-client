@@ -1,0 +1,198 @@
+.ai-game-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.ai-game-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ai-game-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.ai-game-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.ai-game-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ai-game-modal-close:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.ai-game-modal-close:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ai-game-modal-content {
+    padding: 24px;
+}
+
+.ai-game-modal-section {
+    margin-bottom: 20px;
+}
+
+.ai-game-modal-label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 12px;
+    font-size: 0.875rem;
+}
+
+.ai-game-modal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ai-game-modal-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: white;
+}
+
+.ai-game-modal-option:hover {
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+}
+
+.ai-game-modal-option.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.ai-game-modal-option input[type="radio"] {
+    margin-right: 12px;
+    width: 16px;
+    height: 16px;
+    accent-color: #3b82f6;
+}
+
+.ai-game-modal-option span {
+    font-weight: 500;
+    color: #374151;
+}
+
+.ai-game-modal-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ai-game-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+
+.ai-game-modal-cancel,
+.ai-game-modal-start {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    font-size: 0.875rem;
+}
+
+.ai-game-modal-cancel {
+    background-color: white;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.ai-game-modal-cancel:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.ai-game-modal-start {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.ai-game-modal-start:hover:not(:disabled) {
+    background-color: #2563eb;
+}
+
+.ai-game-modal-start:disabled,
+.ai-game-modal-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+    .ai-game-modal {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .ai-game-modal-header,
+    .ai-game-modal-content,
+    .ai-game-modal-footer {
+        padding: 16px;
+    }
+    
+    .ai-game-modal-footer {
+        flex-direction: column;
+    }
+    
+    .ai-game-modal-cancel,
+    .ai-game-modal-start {
+        width: 100%;
+    }
+}

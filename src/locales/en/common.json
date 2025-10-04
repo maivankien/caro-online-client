@@ -35,6 +35,7 @@
     "gamePage": {
         "createRoom": "Create Room",
         "findMatch": "Find Match",
+        "playWithAI": "Play with AI",
         "connecting": "Connecting to game...",
         "gameEnded": "Game has ended!",
         "notYourTurn": "It's not your turn!",
@@ -120,5 +121,12 @@
     },
     "socket": {
         "socketNotConnected": "Socket not connected"
+    },
+    "aiGame": {
+        "title": "Play with AI",
+        "selectBoardSize": "Select board size",
+        "startGame": "Start Game",
+        "starting": "Creating room...",
+        "createAIFailed": "Failed to create AI room"
     }
 }

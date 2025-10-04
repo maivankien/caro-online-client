@@ -35,6 +35,7 @@
     "gamePage": {
         "createRoom": "Tạo phòng",
         "findMatch": "Ghép trận",
+        "playWithAI": "Chơi với máy",
         "connecting": "Đang kết nối game...",
         "gameEnded": "Trò chơi đã kết thúc!",
         "notYourTurn": "Không phải lượt của bạn!",
@@ -120,5 +121,12 @@
     },
     "socket": {
         "socketNotConnected": "Socket không kết nối"
+    },
+    "aiGame": {
+        "title": "Chơi với máy",
+        "selectBoardSize": "Chọn kích thước bàn cờ",
+        "startGame": "Bắt đầu chơi",
+        "starting": "Đang tạo phòng...",
+        "createAIFailed": "Tạo phòng thất bại"
     }
 }

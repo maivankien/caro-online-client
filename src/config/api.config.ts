@@ -20,6 +20,7 @@ export const API_ENDPOINTS = {
     ROOM_LIST: '/api/rooms',
     ROOM_CREATE: '/api/rooms',
     ROOM_JOIN: '/api/rooms/join',
+    ROOM_AI: '/api/rooms/ai',
 } as const
 
 

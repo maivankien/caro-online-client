@@ -5,14 +5,18 @@ import { useNavigate } from 'react-router-dom'
 import { RoomList, CreateRoomModal } from '@/features/room/components'
 import { useTranslation } from '../hooks/useTranslation'
 import { authApi } from '@/features/auth/services/authApi'
+import { roomApi } from '@/features/room/services/roomApi'
 import AppHeader from '@/components/AppHeader'
 import MatchmakingModal from '../components/MatchmakingModal'
+import AIGameModal from '../components/AIGameModal'
+import { toastManager } from '@/contexts/ToastContext'
 
 const RoomPage = () => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
     const [isCreateRoomModalOpen, setIsCreateRoomModalOpen] = useState(false)
     const [isMatchmakingModalOpen, setIsMatchmakingModalOpen] = useState(false)
+    const [isAIGameModalOpen, setIsAIGameModalOpen] = useState(false)
     const { t } = useTranslation()
 
     useEffect(() => {
@@ -38,6 +42,24 @@ const RoomPage = () => {
 
     const handleCloseMatchmaking = () => {
         setIsMatchmakingModalOpen(false)
+    }
+
+    const handleOpenAIGame = () => {
+        setIsAIGameModalOpen(true)
+    }
+
+    const handleCloseAIGame = () => {
+        setIsAIGameModalOpen(false)
+    }
+
+    const handleStartAIGame = async (boardSize: number): Promise<void> => {
+        try {
+            const response = await roomApi.createAIRoom({ boardSize })
+            navigate(`/game/${response.data.id}`)
+        } catch (error) {
+            console.error('Error creating AI room:', error)
+            toastManager.showToast('error', t('aiGame.createAIFailed'))
+        }
     }
 
     if (isLoading) {
@@ -69,6 +91,12 @@ const RoomPage = () => {
                     >
                         {t('gamePage.findMatch')}
                     </button>
+                    <button 
+                        onClick={handleOpenAIGame}
+                        className="ai-game-btn"
+                    >
+                        {t('gamePage.playWithAI')}
+                    </button>
                 </div>
                 
                 <RoomList />
@@ -82,6 +110,12 @@ const RoomPage = () => {
             <MatchmakingModal 
                 isOpen={isMatchmakingModalOpen} 
                 onClose={handleCloseMatchmaking} 
+            />
+            
+            <AIGameModal 
+                isOpen={isAIGameModalOpen} 
+                onClose={handleCloseAIGame}
+                onStartGame={handleStartAIGame}
             />
         </div>
     )

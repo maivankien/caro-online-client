@@ -5,6 +5,8 @@ import type {
     IJoinRoomRequest,
     IJoinRoomResponse,
     IRoom,
+    ICreateAIRoomRequest,
+    ICreateAIRoomResponse,
 } from '../types';
 import { apiClient } from '@/api/base/client';
 import { API_ENDPOINTS } from '@/config/api.config';
@@ -49,5 +51,9 @@ export const roomApi = {
             roomId: data.roomId,
             password: data.password
         })
+    },
+
+    createAIRoom: async (data: ICreateAIRoomRequest): Promise<ICreateAIRoomResponse> => {
+        return await apiClient.post(API_ENDPOINTS.ROOM_AI, data)
     },
 } 

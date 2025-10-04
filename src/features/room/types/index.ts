@@ -44,3 +44,12 @@ export interface IJoinRoomRequest {
 }
 
 export interface IJoinRoomResponse { }
+
+export interface ICreateAIRoomRequest {
+    boardSize: number
+}
+
+export interface ICreateAIRoomResponse {
+    data: IRoom
+    message: string
+}
