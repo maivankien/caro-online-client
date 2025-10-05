@@ -30,7 +30,34 @@
     },
     "homepage": {
         "title": "Caro Online",
-        "placeholder": "Nhập tên của bạn..."
+        "placeholder": "Nhập tên của bạn...",
+        "authMode": {
+            "guest": "Chơi với tư cách khách",
+            "register": "Đăng ký tài khoản",
+            "login": "Đăng nhập"
+        },
+        "register": {
+            "title": "Đăng ký tài khoản",
+            "name": "Tên hiển thị",
+            "namePlaceholder": "Nhập tên của bạn...",
+            "email": "Email",
+            "emailPlaceholder": "Nhập email của bạn...",
+            "password": "Mật khẩu",
+            "passwordPlaceholder": "Nhập mật khẩu...",
+            "confirmPassword": "Xác nhận mật khẩu",
+            "confirmPasswordPlaceholder": "Nhập lại mật khẩu...",
+            "submit": "Đăng ký",
+            "switchToLogin": "Đã có tài khoản? Đăng nhập"
+        },
+        "login": {
+            "title": "Đăng nhập",
+            "email": "Email",
+            "emailPlaceholder": "Nhập email của bạn...",
+            "password": "Mật khẩu",
+            "passwordPlaceholder": "Nhập mật khẩu...",
+            "submit": "Đăng nhập",
+            "switchToRegister": "Chưa có tài khoản? Đăng ký"
+        }
     },
     "gamePage": {
         "createRoom": "Tạo phòng",

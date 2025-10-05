@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store';
 import { authApi } from '../services/authApi';
-import type { ICreateGuestRequest } from '../types';
+import type { ICreateGuestRequest, IRegisterRequest, ILoginRequest } from '../types';
 
 export const useAuth = () => {
     const navigate = useNavigate()
@@ -19,7 +19,19 @@ export const useAuth = () => {
         const response = await authApi.createGuest(data)
         setUser(response.data.user)
         setAuthToken(response.data.token)
-    }, [])
+    }, [setUser, setAuthToken])
+
+    const register = useCallback(async (data: IRegisterRequest) => {
+        const response = await authApi.register(data)
+        setUser(response.data.user)
+        setAuthToken(response.data.token)
+    }, [setUser, setAuthToken])
+
+    const login = useCallback(async (data: ILoginRequest) => {
+        const response = await authApi.login(data)
+        setUser(response.data.user)
+        setAuthToken(response.data.token)
+    }, [setUser, setAuthToken])
 
     const logout = useCallback(async () => {
         try {
@@ -52,6 +64,8 @@ export const useAuth = () => {
         user,
         isAuthenticated,
         createGuest,
+        register,
+        login,
         logout,
         verifyToken
     }

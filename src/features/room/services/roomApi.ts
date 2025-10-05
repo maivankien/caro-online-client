@@ -35,25 +35,35 @@ export const roomApi = {
             ? `${API_ENDPOINTS.ROOM_LIST}?${queryParams.toString()}`
             : API_ENDPOINTS.ROOM_LIST
             
-        return await apiClient.get(url)
+        return await apiClient.get(url, {
+            headers: { 'handle-auth-error': 'true' }
+        })
     },
 
     getRoomDetail: async (roomId: string | undefined): Promise<IRoomDetailResponse> => {
-        return await apiClient.get(`${API_ENDPOINTS.ROOM_LIST}/${roomId}`)
+        return await apiClient.get(`${API_ENDPOINTS.ROOM_LIST}/${roomId}`, {
+            headers: { 'handle-auth-error': 'true' }
+        })
     },
 
     createRoom: async (data: ICreateRoomRequest): Promise<ICreateRoomResponse> => {
-        return await apiClient.post(API_ENDPOINTS.ROOM_CREATE, data)
+        return await apiClient.post(API_ENDPOINTS.ROOM_CREATE, data, {
+            headers: { 'handle-auth-error': 'true' }
+        })
     },
 
     joinRoom: async (data: IJoinRoomRequest): Promise<IJoinRoomResponse> => {
         return await apiClient.post(API_ENDPOINTS.ROOM_JOIN, {
             roomId: data.roomId,
             password: data.password
+        }, {
+            headers: { 'handle-auth-error': 'true' }
         })
     },
 
     createAIRoom: async (data: ICreateAIRoomRequest): Promise<ICreateAIRoomResponse> => {
-        return await apiClient.post(API_ENDPOINTS.ROOM_AI, data)
+        return await apiClient.post(API_ENDPOINTS.ROOM_AI, data, {
+            headers: { 'handle-auth-error': 'true' }
+        })
     },
 } 

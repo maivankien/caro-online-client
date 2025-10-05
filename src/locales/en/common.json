@@ -30,7 +30,34 @@
     },
     "homepage": {
         "title": "Caro Online",
-        "placeholder": "Enter your name..."
+        "placeholder": "Enter your name...",
+        "authMode": {
+            "guest": "Play as guest",
+            "register": "Register account",
+            "login": "Login"
+        },
+        "register": {
+            "title": "Register Account",
+            "name": "Display Name",
+            "namePlaceholder": "Enter your name...",
+            "email": "Email",
+            "emailPlaceholder": "Enter your email...",
+            "password": "Password",
+            "passwordPlaceholder": "Enter password...",
+            "confirmPassword": "Confirm Password",
+            "confirmPasswordPlaceholder": "Re-enter password...",
+            "submit": "Register",
+            "switchToLogin": "Already have an account? Login"
+        },
+        "login": {
+            "title": "Login",
+            "email": "Email",
+            "emailPlaceholder": "Enter your email...",
+            "password": "Password",
+            "passwordPlaceholder": "Enter password...",
+            "submit": "Login",
+            "switchToRegister": "Don't have an account? Register"
+        }
     },
     "gamePage": {
         "createRoom": "Create Room",

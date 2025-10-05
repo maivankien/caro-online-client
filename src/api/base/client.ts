@@ -36,7 +36,8 @@ apiClient.interceptors.response.use(
         const errorMessage = error.response?.data?.message ?? error.message
         toastManager.showToast('error', errorMessage)
 
-        if (error.response?.status === HttpStatusCode.Unauthorized) {
+        if (error.response?.status === HttpStatusCode.Unauthorized && 
+            error.config?.headers?.['handle-auth-error'] === 'true') {
             useAppStore.getState().logout()
             window.location.href = '/'
         }

@@ -21,6 +21,17 @@ export interface ICreateGuestRequest {
     name: string
 }
 
+export interface IRegisterRequest {
+    name: string
+    email: string
+    password: string
+}
+
+export interface ILoginRequest {
+    email: string
+    password: string
+}
+
 export interface IProfileData {
     name: string
     isGuest: number
