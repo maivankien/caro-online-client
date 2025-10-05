@@ -7,9 +7,10 @@ interface IAppHeaderProps {
     title: string
     showLogout?: boolean
     showWelcomeMessage?: boolean
+    showProfile?: boolean
 }
 
-const AppHeader = ({ title, showLogout = true, showWelcomeMessage = true }: IAppHeaderProps) => {
+const AppHeader = ({ title, showLogout = true, showWelcomeMessage = true, showProfile = true }: IAppHeaderProps) => {
     const navigate = useNavigate()
     const { t } = useTranslation()
     const user = useAppStore(state => state.user)
@@ -17,6 +18,10 @@ const AppHeader = ({ title, showLogout = true, showWelcomeMessage = true }: IApp
     const handleLogout = () => {
         useAppStore.getState().logout()
         navigate('/')
+    }
+
+    const handleProfile = () => {
+        navigate('/profile')
     }
 
     return (
@@ -32,6 +37,14 @@ const AppHeader = ({ title, showLogout = true, showWelcomeMessage = true }: IApp
                 </div>
                 <div className="header-right">
                     <LanguageSwitcher />
+                    {showProfile && user && (
+                        <button
+                            onClick={handleProfile}
+                            className="profile-btn"
+                        >
+                            {t('profile.title')}
+                        </button>
+                    )}
                     {showLogout && (
                         <button
                             onClick={handleLogout}

@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/base/client';
 import { API_ENDPOINTS } from '@/config/api.config';
-import type { IAuthResponse, ICreateGuestRequest } from '../types';
+import type { IAuthResponse, ICreateGuestRequest, IProfileResponse } from '../types';
 
 export const authApi = {
     createGuest: async (data: ICreateGuestRequest): Promise<IAuthResponse> => {
@@ -13,5 +13,9 @@ export const authApi = {
 
     verifyToken: async (): Promise<IAuthResponse> => {
         return await apiClient.get(API_ENDPOINTS.AUTH_VERIFY)
+    },
+
+    getProfile: async (): Promise<IProfileResponse> => {
+        return await apiClient.get(API_ENDPOINTS.AUTH_PROFILE)
     }
 } 

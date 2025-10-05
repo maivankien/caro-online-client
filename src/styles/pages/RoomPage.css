@@ -60,6 +60,21 @@
     gap: 16px;
 }
 
+.profile-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1890ff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 8px;
+}
+
+.profile-btn:hover {
+    background-color: #40a9ff;
+}
+
 .logout-btn {
     padding: 8px 16px;
     border: none;

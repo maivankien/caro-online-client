@@ -117,7 +117,8 @@
         "timeoutMessage": "Tìm trận thất bại, vui lòng thử lại sau"
     },
     "common": {
-        "cancel": "Hủy"
+        "cancel": "Hủy",
+        "loading": "Đang tải..."
     },
     "socket": {
         "socketNotConnected": "Socket không kết nối"
@@ -128,5 +129,17 @@
         "startGame": "Bắt đầu chơi",
         "starting": "Đang tạo phòng...",
         "createAIFailed": "Tạo phòng thất bại"
+    },
+    "profile": {
+        "title": "Thông tin cá nhân",
+        "guest": "Khách",
+        "member": "Thành viên",
+        "elo": "Điểm ELO",
+        "totalGames": "Tổng số trận",
+        "wins": "Thắng",
+        "losses": "Thua",
+        "winRate": "Tỷ lệ thắng",
+        "error": "Có lỗi xảy ra khi tải thông tin",
+        "noData": "Không có dữ liệu"
     }
 }

@@ -2,6 +2,7 @@ import HomePage from '@/pages/HomePage'
 import RoomPage from '@/pages/RoomPage'
 import GamePage from '@/pages/GamePage'
 import RoomLobbyPage from '@/pages/RoomLobbyPage'
+import ProfilePage from '@/pages/ProfilePage'
 import { Routes, Route } from 'react-router-dom'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -39,6 +40,7 @@ const Router = () => {
                             </RoomSocketProvider>
                         } 
                     />
+                    <Route path="/profile" element={<ProfilePage />} />
                 </Routes>   
             </QueryClientProvider>
         </ErrorBoundary>

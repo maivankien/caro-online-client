@@ -117,7 +117,8 @@
         "timeoutMessage": "Matchmaking failed, please try again later"
     },
     "common": {
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "loading": "Loading..."
     },
     "socket": {
         "socketNotConnected": "Socket not connected"
@@ -128,5 +129,17 @@
         "startGame": "Start Game",
         "starting": "Creating room...",
         "createAIFailed": "Failed to create AI room"
+    },
+    "profile": {
+        "title": "Profile",
+        "guest": "Guest",
+        "member": "Member",
+        "elo": "ELO Rating",
+        "totalGames": "Total Games",
+        "wins": "Wins",
+        "losses": "Losses",
+        "winRate": "Win Rate",
+        "error": "Error loading profile information",
+        "noData": "No data available"
     }
 }

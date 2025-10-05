@@ -20,3 +20,17 @@ export interface IAuthResponse {
 export interface ICreateGuestRequest {
     name: string
 }
+
+export interface IProfileData {
+    name: string
+    isGuest: number
+    elo: number
+    totalGames: number
+    wins: number
+    losses: number
+}
+
+export interface IProfileResponse {
+    data: IProfileData
+    message: string
+}

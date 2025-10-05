@@ -1,0 +1,148 @@
+.profile-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+}
+
+.profile-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.profile-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.profile-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #667eea;
+    color: white;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.stat-value.wins {
+    color: #4CAF50;
+}
+
+.stat-value.losses {
+    color: #f44336;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.back-btn {
+    padding: 12px 24px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.loading, .error, .no-data {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+}
+
+.error {
+    color: #f44336;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 24px;
+    }
+    
+    .profile-name {
+        font-size: 24px;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+    }
+    
+    .back-btn {
+        width: 100%;
+    }
+}
