@@ -14,7 +14,7 @@ export const API_ENDPOINTS = {
     // Auth endpoints
     AUTH_GUEST: '/api/auth/guest',
     AUTH_LOGOUT: '/api/auth/logout',
-    AUTH_PROFILE: '/api/auth/profile',
+    AUTH_VERIFY: '/api/auth/verify',
 
     // Room endpoints
     ROOM_LIST: '/api/rooms',

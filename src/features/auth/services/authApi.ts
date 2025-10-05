@@ -12,6 +12,6 @@ export const authApi = {
     },
 
     verifyToken: async (): Promise<IAuthResponse> => {
-        return await apiClient.get(API_ENDPOINTS.AUTH_PROFILE)
+        return await apiClient.get(API_ENDPOINTS.AUTH_VERIFY)
     }
 } 
