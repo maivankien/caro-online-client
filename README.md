@@ -24,6 +24,9 @@ Caro Online Client is a sophisticated frontend application that provides an imme
 ![Matchmaking](docs/screenshots/matchmaking.png)
 *Intelligent player matching with ELO-based system*
 
+### 🏠**Profile**
+![Profile](docs/screenshots/profile.png)
+
 
 ## Related Projects
 
